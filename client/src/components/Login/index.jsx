@@ -2,6 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
 import styles from "./styles.module.css"
+import cart from "../../images/cart.png"
 
 const Login = () => {
     const [data, setData] = useState({ email: "", password: "" })
@@ -24,22 +25,23 @@ const Login = () => {
     }
     return (
         <div className={styles.login_container}>
-            <div className={styles.login_form_container}>
-                <div className={styles.left}>
-                    <form className={styles.form_container} onSubmit={handleSubmit}>
-                        <h1>Zaloguj się</h1>
-                        <input type="email" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className={styles.input} />
-                        <input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password} required className={styles.input} />
-                        {error && <div className={styles.error_msg}>{error}</div>}
-                        <button type="submit" className={styles.green_btn}> Sign In</button>
-                    </form>
+            <div className={styles.login_container_2}>
+                <div className={styles.login_title_container}>
+                    <p className={styles.login_title}>Zaloguj się</p>
                 </div>
-                <div className={styles.right}>
-                    <h1>Rejestracja</h1>
-                    <Link to="/signup">
-                        <button type="button" className={styles.white_btn}> Sing Up </button>
-                    </Link>
+                <form className={styles.form_container} onSubmit={handleSubmit}>
+                    <p>Email</p>
+                    <input type="email" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className={styles.input} />
+                    <p>Hasło</p>
+                    <input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password} required className={styles.input} />
+                    {error && <div className={styles.error_msg}>{error}</div>}
+                    <button type="submit" className={styles.green_btn}>Zaloguj się</button>
+                </form>
+                <div className={styles.register}>
+                    <p>Nie masz konta? Zarejestruj się</p>
+                    <p>Zapomniałeś hasła? Odzyskaj hasło</p>
                 </div>
+                <img className = {styles.cart} src={cart} hidden></img>
             </div>
         </div>
         

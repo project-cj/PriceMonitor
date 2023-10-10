@@ -14,11 +14,12 @@ router.post("/", async (req, res) => {
             return res.status(409).send({ message: "Użytkownik już istnieje!" })
         const salt = await bcrypt.genSalt(Number(process.env.SALT))
         const hashPassword = await bcrypt.hash(req.body.password, salt)
+
         await User.create({ ...req.body, password: hashPassword, status: "USER", x_location: 0.0, y_location: 0.0, radius: 0.0})
         res.status(201).send({ message: "Użytkownik zarejestrowany pomyślnie" })
     } catch (error) {
         console.log(error)
-        res.status(500).send({ message: "Internal Server Error" })
+        res.status(500).send({ message: "Błąd serwera" })
     }
 })
 module.exports = router

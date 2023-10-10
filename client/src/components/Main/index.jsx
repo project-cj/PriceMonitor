@@ -22,6 +22,7 @@ const Main = () => {
                 </div>
             </nav>
             <div className={styles.main}>
+                
             </div>
         </div>
     )

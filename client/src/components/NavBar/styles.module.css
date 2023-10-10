@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+    background: #000;
+    justify-content: space-between;
+    align-items: center;
+    height:60px;
+}
+.menu{
+    display: flex;
+    align-items: center;
+}
+.text{
+    color: #BCE0CF;
+    font-family: "Jost-Medium";
+}
+img{
+    margin: 10px;
+}
+.logo{
+    height:30px;
+}
+.icon{
+    height: 30px;
+}
+.login_button{
+    background: #4B9C76;
+    width: 130px;
+    height: 30px;
+    border-radius: 15px;
+    margin: 0 15px;
+}

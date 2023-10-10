@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const path = require('path')
+const jwt = require("jsonwebtoken")
 const User = require("../models/user.js")
 const bcrypt = require("bcrypt")
 const Joi = require("joi")
@@ -9,19 +10,19 @@ router.post("/", async (req, res) => {
         if (error)
             return res.status(400).send({ message: error.details[0].message })
         const user = await User.findOne({ where: { email: req.body.email }})
-        console.log(user)
         if (!user)
-            return res.status(401).send({ message: "Invalid Email or Password" })
+            return res.status(401).send({ message: "Nieprawidłowy adres email lub hasło" })
         const validPassword = await bcrypt.compare(req.body.password, user.password)
-        console.log("X")
-        console.log(await bcrypt.compare("Password1#", "$2b$10$b/L672SFqG4G67mdGNTDPe/dpgkHN2B2YO/M3m"))
         if (!validPassword)
-            return res.status(401).send({ message: "Invalid Email or Password" })
-        const token = user.generateAuthToken();
-        res.status(200).send({ data: token, message: "Logged in successfully" })
+            return res.status(401).send({ message: "Nieprawidłowy adres email lub hasło" })
+        const token = jwt.sign({ id: user.id, status: user.status, email: user.email}, process.env.JWTPRIVATEKEY, {
+            expiresIn: "5h",
+        })
+        res.status(200).send({ data: token, message: "Zalogowano" })
         console.log('User logged in')
     } catch (error) {
-        res.status(500).send({ message: "Internal Server Error" })
+        console.log(error)
+        res.status(500).send({ message: "Błąd serwera" })
     }
 })
 const validate = (data) => {
