@@ -4,9 +4,8 @@ const passwordComplexity = require("joi-password-complexity")
 
 function validate(data){
     const schema = Joi.object({
-        firstName: Joi.string().required().label("First Name"),
-        lastName: Joi.string().required().label("Last Name"),
         email: Joi.string().email().required().label("Email"),
+        alias: Joi.required().label("Alias"),
         password: passwordComplexity().required().label("Password"),
     })
     return schema.validate(data)

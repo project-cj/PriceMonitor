@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const cors = require('cors')
+const db = require('./db.js')
 
 const userRoutes = require('./routes/userRoutes.js')
 const authRoutes = require('./routes/authRoutes.js')
