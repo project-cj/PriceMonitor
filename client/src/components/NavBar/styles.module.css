@@ -3,7 +3,8 @@
     background: #000;
     justify-content: space-between;
     align-items: center;
-    height:60px;
+    min-height:60px;
+    flex-wrap: wrap;
 }
 .menu{
     display: flex;

@@ -12,6 +12,7 @@ router.post("/", async (req, res) => {
         const user = await User.findOne({ where: { email: req.body.email }})
         if (user)
             return res.status(409).send({ message: "Użytkownik już istnieje!" })
+        
         const salt = await bcrypt.genSalt(Number(process.env.SALT))
         const hashPassword = await bcrypt.hash(req.body.password, salt)
 

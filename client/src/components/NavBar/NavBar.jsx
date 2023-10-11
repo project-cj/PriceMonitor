@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Image from "react";
 import styles from "./styles.module.css"
 import logo from "../../images/logo.png"
@@ -7,6 +8,7 @@ import products from "../../images/products.png"
 import shops from "../../images/shops.png"
 
 const NavBar = () => {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
         <img className = {styles.logo} src={logo}/>
@@ -17,7 +19,7 @@ const NavBar = () => {
             <p className={styles.text}>Sklepy</p>
             <img className = {styles.icon} src={products}/>
             <p className={styles.text}>Produkty</p>
-            <button className = {styles.login_button}>Zaloguj się</button>
+            <button className = {styles.login_button} onClick={() => navigate('/login')}>Zaloguj się</button>
         </div>
     </div>
   );

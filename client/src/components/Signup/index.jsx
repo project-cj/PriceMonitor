@@ -2,11 +2,13 @@ import { useState } from "react"
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import styles from "./styles.module.css"
+import cart from "../../images/cart.png"
 const Signup = () => {
     const [data, setData] = useState({
         email: "",
         alias:"",
-        password: ""
+        password: "",
+        password_repeat: ""
     })
     const [error, setError] = useState("")
     const navigate = useNavigate()
@@ -28,23 +30,23 @@ const Signup = () => {
     }
     return (
         <div className={styles.signup_container}>
-            <div className={styles.signup_form_container}>
-                <div className={styles.left}>
-                    <h1>Witaj ponownie!</h1>
-                    <Link to="/login">
-                        <button type="button" className={styles.white_btn}>Sign in</button>
-                    </Link>
+            <div className={styles.signup_container_2}>
+                <div className={styles.signup_title_container}>
+                    <p className={styles.signup_title}>Zarejestruj się</p>
                 </div>
-                <div className={styles.right}>
-                    <form className={styles.form_container} onSubmit={handleSubmit}>
-                        <h1>Stwórz konto</h1>
-                        <input type="email" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className={styles.input} />
-                        <input type="text" placeholder="Alias" name="alias" onChange={handleChange} value={data.alias} required className={styles.input} />
-                        <input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password} required className={styles.input} />
-                        {error && <div className={styles.error_msg}>{error}</div>}
-                        <button type="submit" className={styles.green_btn}> Sign Up </button>
-                    </form>
-                </div>
+                <form className={styles.form_container} onSubmit={handleSubmit}>
+                    <p>Email</p>
+                    <input type="email" placeholder="Email" name="email" onChange={handleChange} value={data.email} required className={styles.input} />
+                    <p>Hasło</p>
+                    <input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password} required className={styles.input} />
+                    <p>Powtórz hasło</p>
+                    <input type="password" placeholder="Password" name="password_repeat" onChange={handleChange} value={data.password_repeat} required className={styles.input} />
+                    <p>Pseudonim</p>
+                    <input type="text" placeholder="Pseudonim" name="alias" onChange={handleChange} value={data.alias} required className={styles.input} />
+                    {error && <div className={styles.error_msg}>{error}</div>}
+                    <button type="submit" className={styles.green_btn}>Zarejestruj się</button>
+                </form>
+                <img className = {styles.cart} src={cart} hidden></img>
             </div>
         </div>
     );

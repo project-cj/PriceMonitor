@@ -1,10 +1,11 @@
 import { useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styles from "./styles.module.css"
 import cart from "../../images/cart.png"
 
 const Login = () => {
+    const navigate = useNavigate();
     const [data, setData] = useState({ email: "", password: "" })
     const [error, setError] = useState("")
     const handleChange = ({ currentTarget: input }) => {
@@ -38,13 +39,12 @@ const Login = () => {
                     <button type="submit" className={styles.green_btn}>Zaloguj się</button>
                 </form>
                 <div className={styles.register}>
-                    <p>Nie masz konta? Zarejestruj się</p>
-                    <p>Zapomniałeś hasła? Odzyskaj hasło</p>
+                    <p>Nie masz konta? <text className={styles.blue_text} onClick={() => navigate('/signup')}>Zarejestruj się</text></p>
+                    <p>Zapomniałeś hasła? <text className={styles.blue_text}>Odzyskaj hasło</text></p>
                 </div>
                 <img className = {styles.cart} src={cart} hidden></img>
             </div>
         </div>
-        
     )
 }
 export default Login;

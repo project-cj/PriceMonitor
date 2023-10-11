@@ -6,7 +6,8 @@ function validate(data){
     const schema = Joi.object({
         email: Joi.string().email().required().label("Email"),
         alias: Joi.required().label("Alias"),
-        password: passwordComplexity().required().label("Password"),
+        password: passwordComplexity().required().label("Hasło"),
+        password_repeat: passwordComplexity().required().valid(Joi.ref('password')).label("Hasła nie są identyczne")
     })
     return schema.validate(data)
 }
