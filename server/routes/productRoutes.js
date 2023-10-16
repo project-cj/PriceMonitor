@@ -30,4 +30,16 @@ router.get('/api/products/:id', async (req, res) => {
   }
 });
 
+router.get('/api/products', async (req, res) => {
+    const selectedCity = req.query.city; 
+  
+    try {
+      const products = await Product.findAll({ where: { city: selectedCity } });
+      res.json(products);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Wystąpił błąd podczas pobierania produktów.' });
+    }
+  });
+
 module.exports = router;

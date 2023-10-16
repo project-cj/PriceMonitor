@@ -1,7 +1,7 @@
-const sequelize = require('../db'); 
 const { DataTypes } = require('sequelize');
+const sequelize = require('../db'); 
 
-const Product = sequelize.define('Product', {
+const City = sequelize.define('City', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -12,22 +12,14 @@ const Product = sequelize.define('Product', {
     type: DataTypes.STRING(45),
     allowNull: false,
   },
-  code: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-  },
-  Brand_id: {
+  Voivodeship_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-  },
-  Subcategory_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+},
 
 },{
   freezeTableName: true,
   timestamps: false
 });
 
-module.exports = Product;
+module.exports = City;
