@@ -5,6 +5,8 @@ import Signup from "./components/Signup"
 import Login from "./components/Login"
 
 import Main from "./components/Main"
+import Home from "./components/Home"
+import ProductList from "./components/ProductList"
 
 
 function App() {
@@ -13,12 +15,15 @@ function App() {
   if(user)
     decode = jwt(user)
   return (
-    <Routes>
-      {user && decode.status == "USER" && <Route path="/" exact element={<Main />} />}
-      <Route path="/signup" exact element={<Signup />} />
-      <Route path="/login" exact element={<Login />} />
-      <Route path="/" element={<Navigate replace to="/login" />} />
-    </Routes>
+<Routes>
+  {user && decode.status === "USER" && <Route path="/" element={<Main />} />}
+  <Route path="/home" element={<Home />} />
+  <Route path="/signup" element={<Signup />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/product" element={<ProductList />} />
+  <Route path="/" element={<Home />} />
+</Routes>
+
   )
 }
 export default App

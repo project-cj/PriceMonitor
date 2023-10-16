@@ -14,16 +14,7 @@ const Main = () => {
     }
     return (
         <div className={styles.main_container}>
-            <nav className={styles.navbar}>
-                <h1>Rezerwacja pokoi</h1>
-                <div className = {styles.buttons_container}>
-                    <button className={styles.white_btn} onClick = {handleMain}>Strona główna</button>
-                    <button className={styles.white_btn} onClick={handleLogout}> Wyloguj </button>
-                </div>
-            </nav>
-            <div className={styles.main}>
-                
-            </div>
+
         </div>
     )
 }

@@ -1,0 +1,39 @@
+.home_container {
+    width: 100%;
+    min-height: 95vh;
+    background-color: #BCE0CF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home_container_2 {
+    background-color: #6d7f77;
+    width: 90%;
+    min-height: 85vh;
+    color: white;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    padding: 20px;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.thead {
+    background-color: #6d7f77; 
+    color: white; 
+}
+
+.th, td {
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    text-align: center; 
+}
+

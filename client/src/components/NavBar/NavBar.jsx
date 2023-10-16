@@ -13,12 +13,16 @@ const NavBar = () => {
     <div className={styles.container}>
         <img className = {styles.logo} src={logo}/>
         <div className={styles.menu}>
-            <img className = {styles.icon} src={mainPage}/>
-            <p className={styles.text}>Strona główna</p>
+            <img className = {styles.icon} src={mainPage} onClick={() => navigate("/home")}/>
+            <p className={styles.text} onClick={() => navigate("/home")}>Strona główna</p>
+           
             <img className = {styles.icon} src={shops}/>
             <p className={styles.text}>Sklepy</p>
-            <img className = {styles.icon} src={products}/>
-            <p className={styles.text}>Produkty</p>
+           
+            <img className={styles.icon} src={products} onClick={() => navigate("/product")} />
+            <p className={styles.text} onClick={() => navigate("/product")}>Produkty</p>
+
+
             <button className = {styles.login_button} onClick={() => navigate('/login')}>Zaloguj się</button>
         </div>
     </div>
