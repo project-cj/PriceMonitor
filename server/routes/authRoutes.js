@@ -1,7 +1,11 @@
 const router = require("express").Router()
 const path = require('path')
 const jwt = require("jsonwebtoken")
-const User = require("../models/user.js")
+
+const {DataTypes} = require('sequelize');
+const sequelize = require('../db.js')
+const User = require("../models2/user.js")(sequelize, DataTypes)
+
 const bcrypt = require("bcrypt")
 const Joi = require("joi")
 router.post("/", async (req, res) => {

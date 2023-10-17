@@ -48,32 +48,21 @@ const ProductList = () => {
   }, []); 
 
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (selectedCity && selectedProduct) {
-    
-    // console.log('city and product selected')
-    // const results = products.filter((product) => {
-    //   // selectedCity to ID miasta, a selectedProduct to ID produktu
-    //   return shops.some((shop) => {
-    //     return shop.shopHasAProducts.some((shopHasAProduct) => {
-    //       return (
-    //         shopHasAProduct.productId === selectedProduct &&
-    //         shop.cityId === selectedCity
-    //       );
-    //     });
-    //   });
-    // });
-
-    //console.log("Search Results:", results); 
-    //setSearchResults(results);
+      try {
+        const response = await axios.post("http://localhost:8080/api/products/search", {
+          city: selectedCity,
+          product: selectedProduct
+        })
+        console.log("prods:", response.data[0].shop_has_products)
+        setSearchResults(response.data[0].shop_has_products)
+      } catch (error) {
+        setError("Błąd wyszukiwania")
+      }
     } else {
       setSearchResults([]);
       console.log('not found anything!')
-      console.log(selectedCity)
-      console.log(selectedProduct)
-      console.log(shops)
-      console.log(products)
-      console.log(cities)
     }
   };
   
@@ -101,25 +90,19 @@ const ProductList = () => {
       <button onClick={handleSearch} className={styles.green_btn}>Szukaj</button>
       {searchResults.length > 0 && (
         <div>
-          <h3>Wyniki wyszukiwania:</h3>
-          <table>
+          <h2>Wyniki wyszukiwania:</h2>
+          <table className={styles.searchResults}>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nazwa</th>
-                <th>Kod</th>
-                <th>ID Marki</th>
-                <th>ID Podkategorii</th>
+                <th>Nazwa sklepu</th>
+                <th>Ulica</th>
               </tr>
             </thead>
             <tbody>
               {searchResults.map((result) => (
                 <tr key={result.id}>
-                  <td>{result.id}</td>
-                  <td>{result.name}</td>
-                  <td>{result.code}</td>
-                  <td>{result.Brand_id}</td>
-                  <td>{result.Subcategory_id}</td>
+                  <td>{result.Shop.name}</td>
+                  <td>{result.Shop.address}</td>
                 </tr>
               ))}
             </tbody>
