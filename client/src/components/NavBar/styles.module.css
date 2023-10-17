@@ -40,6 +40,9 @@ img{
     display: flex;
     align-items: center;
 }
+.redirect:hover{
+    cursor: pointer;
+}
 .dropdownMenu{
     position: absolute;
     top: 60px;

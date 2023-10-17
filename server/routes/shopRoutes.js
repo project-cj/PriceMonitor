@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router(); 
-const Shop = require('../models/shop.js');
+
+const {DataTypes} = require('sequelize');
+const sequelize = require('../db.js')
+const Shop = require('../models2/shop.js')(sequelize, DataTypes);
 
 router.get('/', async (req, res) => {
     try {
@@ -12,7 +15,7 @@ router.get('/', async (req, res) => {
     }
   });
 
-  router.get('/api/shops/:id', async (req, res) => {
+  router.get('/:id', async (req, res) => {
     const id = req.params.id;
   
     try {

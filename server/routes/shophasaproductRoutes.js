@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router(); 
-const ShopHasAProduct = require('../models/shophasaproduct.js');
+
+const {DataTypes} = require('sequelize');
+const sequelize = require('../db.js')
+const ShopHasAProduct = require('../models2/shop_has_product.js')(sequelize, DataTypes);
 
 router.get('/', async (req, res) => {
     try {

@@ -1,6 +1,10 @@
 const router = require("express").Router()
 const path = require('path')
-const User = require("../models/user.js")
+
+const {DataTypes} = require('sequelize');
+const sequelize = require('../db.js')
+const User = require("../models2/user.js")(sequelize, DataTypes)
+
 const validate = require("../controllers/userController.js")
 const bcrypt = require("bcrypt")
 

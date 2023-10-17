@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const City = require('../models/city.js'); 
+
+const {DataTypes} = require('sequelize');
+const sequelize = require('../db.js')
+const City = require('../models2/city.js')(sequelize, DataTypes); 
 
 router.get('/', async (req, res) => {
   try {
