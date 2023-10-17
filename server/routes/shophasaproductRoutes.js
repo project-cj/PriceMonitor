@@ -11,9 +11,8 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Wystąpił błąd podczas pobierania relacji ShopHasAProduct.' });
     }
   });
-  router.get('/api/shophasaproducts/:id', async (req, res) => {
+  router.get('/:id', async (req, res) => {
     const id = req.params.id;
-  
     try {
       const shopHasAProduct = await ShopHasAProduct.findByPk(id);
       if (shopHasAProduct) {
