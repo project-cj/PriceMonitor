@@ -248,7 +248,7 @@ INSERT INTO `product` (`id`, `name`, `code`, `Brand_id`, `Subcategory_id`) VALUE
 
 CREATE TABLE `shop` (
   `id` int(11) NOT NULL,
-  `shop_name` varchar(45) NOT NULL,
+  `name` varchar(45) NOT NULL,
   `x_location` float NOT NULL,
   `y_location` float NOT NULL,
   `status` varchar(45) NOT NULL,
@@ -260,7 +260,7 @@ CREATE TABLE `shop` (
 -- Zrzut danych tabeli `shop`
 --
 
-INSERT INTO `shop` (`id`, `shop_name`, `x_location`, `y_location`, `status`, `address`, `Street_id`) VALUES
+INSERT INTO `shop` (`id`, `name`, `x_location`, `y_location`, `status`, `address`, `Street_id`) VALUES
 (1, 'Lidl', 51.2293, 22.5368, 'AKTYWNY', 'Romantyczna 2', 3),
 (2, 'Lewiatan', 51.2421, 22.516, 'AKTYWNY', 'Zygmunta Krasińskiego 3', 2),
 (3, 'Żabka', 51.2371, 22.548, 'AKTYWNY', 'Nadbystrzycka 39', 1),
