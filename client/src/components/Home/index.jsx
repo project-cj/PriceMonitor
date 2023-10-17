@@ -17,7 +17,7 @@ const Home = () => {
         <div className={styles.buttons}>
           <button type = "submit" className={styles.green_btn}
             onClick={() => navigate("/signup")}>Zarejestruj się</button>
-            <p><text className={styles.white_text} onClick={() => navigate('/product')}>Kontynuuj bez konta</text></p>
+            <p className={styles.white_text} onClick={() => navigate('/product')}>Kontynuuj bez konta</p>
         </div>
       </div>
     </div>

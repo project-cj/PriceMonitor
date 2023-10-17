@@ -81,7 +81,6 @@ const ProductList = () => {
     }
   };
   
-
   return (
     <div className={styles.product_container}>
         <div className={styles.product_container_2}>

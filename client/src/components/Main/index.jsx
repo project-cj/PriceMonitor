@@ -14,7 +14,7 @@ const Main = () => {
     }
     return (
         <div className={styles.main_container}>
-
+            <p>main</p>
         </div>
     )
 }
