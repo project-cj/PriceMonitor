@@ -72,12 +72,12 @@ const ProductList = () => {
           });
         });
       });
-      
       console.log("Search Results:", results); 
-  
       setSearchResults(results);
     } else {
       setSearchResults([]);
+      console.log('not found anything!')
+      console.log(shops)
     }
   };
   

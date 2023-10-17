@@ -311,7 +311,7 @@ CREATE TABLE `shoppinglist_has_product` (
 --
 
 CREATE TABLE `shop_has_product` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `Shop_id` int(11) NOT NULL,
   `Product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

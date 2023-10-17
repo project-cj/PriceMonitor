@@ -7,7 +7,7 @@ const Shop = sequelize.define('Shop', {
     primaryKey: true,
     autoIncrement: true,
   },
-  shop_name: {
+  name: {
     type: DataTypes.STRING(45),
     allowNull: false,
   },

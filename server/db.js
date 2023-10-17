@@ -7,11 +7,12 @@ sequelize.authenticate()
     }).catch((err)=>{
         console.log("Not connected")
     })
+/*
 sequelize.sync()
     .then((result)=>{
         console.log("Synched")
     }).catch((err)=>{
         console.log("Not synched")
     })
-
+*/
 module.exports = sequelize
