@@ -598,6 +598,7 @@ ALTER TABLE `shoppinglist_has_product`
 --
 ALTER TABLE `shop_has_product`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
   ADD KEY `fk_Shop_has_Product_Product1_idx` (`Product_id`),
   ADD KEY `fk_Shop_has_Product_Shop1_idx` (`Shop_id`);
 
@@ -704,6 +705,12 @@ ALTER TABLE `shoppinglist`
 -- AUTO_INCREMENT dla tabeli `shoppinglist_has_product`
 --
 ALTER TABLE `shoppinglist_has_product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `shop_has_product`
+--
+ALTER TABLE `shop_has_product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
