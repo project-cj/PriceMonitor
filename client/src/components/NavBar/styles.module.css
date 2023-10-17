@@ -23,10 +23,55 @@ img{
 .icon{
     height: 30px;
 }
+.iconSmall{
+    height: 15px;
+}
 .login_button{
     background: #4B9C76;
     width: 130px;
     height: 30px;
     border-radius: 15px;
     margin: 0 15px;
+}
+.login_button:hover{
+    background-color: #3ec385;
+}
+.redirect{
+    display: flex;
+    align-items: center;
+}
+.dropdownMenu{
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    background-color: #4b9c76;
+}
+.dropdownMenu.active{
+    opacity: 1;
+    visibility: visible;
+}
+.dropdownMenu.inactive{
+    opacity: 0;
+    visibility: hidden;
+}
+.dropdownComponent{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+    padding-left: 5px;
+}
+.dropdownComponent:hover{
+    background-color: #3ec385;
+}
+.userMenu{
+    color:#4B9C76;
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    font-weight: bold;
+}
+.userMenu:hover{
+    cursor: pointer;
 }
