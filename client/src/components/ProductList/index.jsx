@@ -57,8 +57,10 @@ const ProductList = () => {
         })
         console.log("prods:", response.data[0].shop_has_products)
         setSearchResults(response.data[0].shop_has_products)
+        setError(null)
       } catch (error) {
         setError("Błąd wyszukiwania")
+        setSearchResults([])
       }
     } else {
       setSearchResults([]);

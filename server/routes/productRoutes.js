@@ -23,6 +23,9 @@ router.post('/search', async (req, res) => {
     const product = req.body.product
     const products = await models.product.findAll({
       attributes: ['name'],
+      where: {
+        Id: product
+      },
       include: [
         {
           model: models.shop_has_product, // Uwzględnij model ShopHasProduct
