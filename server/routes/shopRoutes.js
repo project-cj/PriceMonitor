@@ -30,5 +30,11 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Wystąpił błąd podczas pobierania sklepu.' });
     }
   });
-  
+  router.post('/search', async (req, res) => {
+    try {
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania produktów.' });
+    }
+  })
 module.exports = router;

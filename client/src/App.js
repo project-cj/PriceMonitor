@@ -7,6 +7,9 @@ import Login from "./components/Login"
 import Main from "./components/Main"
 import Home from "./components/Home"
 import ProductList from "./components/ProductList"
+import ShopSearch from "./components/ShopSearch"
+import Shop from "./components/Shop"
+import Product from "./components/Product"
 
 
 function App() {
@@ -19,7 +22,13 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       {user && decode.status === "USER" && <Route path="/main" exact element={<Main />} />}
-      {user && decode.status === "USER" && <Route path="/product" exact element={<ProductList />} />}
+      
+      {user && decode.status === "USER" && <Route path="/productsearch" exact element={<ProductList />} />}
+      {user && decode.status === "USER" && <Route path="/shopsearch" exact element={<ShopSearch />} />}
+
+      {user && decode.status === "USER" && <Route path="/shop" exact element={<Shop />} />}
+      {user && decode.status === "USER" && <Route path="/product" exact element={<Product />} />}
+
       <Route path="/home" exact element={<Home />} />
 
       

@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLocation} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles.module.css";
+import vectorRight from "../../images/vectorRight.png"
 
 const ProductList = () => {
+  const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
   const [cities, setCities] = useState([]);
   const [shops, setShops] = useState([]);
@@ -38,7 +42,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/shops"); 
+        const response = await axios.get("http://localhost:8080/api/shop"); 
         setShops(response.data);
       } catch (error) {
         setError("Wystąpił błąd podczas pobierania sklepów.");
@@ -67,11 +71,15 @@ const ProductList = () => {
       console.log('not found anything!')
     }
   };
+
+  const navigateProduct = (item) => {
+    navigate('/product', {state: {item}})
+  }
   
   return (
     <div className={styles.product_container}>
         <div className={styles.product_container_2}>
-      <h2>Wyszukaj produkt</h2>
+      <p className={styles.title}>Wyszukaj produkt</p>
       {error && <p className={styles.error}>{error}</p>}
       <select className={styles.select_style} onChange={(e) => setSelectedCity(e.target.value)}>
         <option value="" selected hidden>Wybierz miasto</option>
@@ -92,7 +100,7 @@ const ProductList = () => {
       <button onClick={handleSearch} className={styles.green_btn}>Szukaj</button>
       {searchResults.length > 0 && (
         <div>
-          <h2>Wyniki wyszukiwania:</h2>
+          <p className={styles.title}>Wyniki wyszukiwania</p>
           <table className={styles.searchResults}>
             <thead>
               <tr>
@@ -100,15 +108,17 @@ const ProductList = () => {
                 <th>Ulica</th>
                 <th>Najniższa cena</th>
                 <th>Najwyższa cena</th>
+                <th>Produkt</th>
               </tr>
             </thead>
             <tbody>
-              {searchResults.map((result) => (
-                <tr key={result.id}>
+              {searchResults.map((result, index) => (
+                <tr key={index}>
                   <td>{result.name}</td>
                   <td>{result.address}</td>
-                  <td>{result.shop_has_products[0].price_reads[0].minPrice}</td>
-                  <td>{result.shop_has_products[0].price_reads[0].maxPrice}</td>
+                  <td>{result.shop_has_products[index].price_reads[0].minPrice}</td>
+                  <td>{result.shop_has_products[index].price_reads[0].maxPrice}</td>
+                  <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(selectedProduct)} alt="x"></img></td>  
                 </tr>
               ))}
             </tbody>

@@ -45,11 +45,11 @@ const NavBar = () => {
             <img className = {styles.icon} src={mainPage} alt="main"/>
             <p className={styles.text}>Strona główna</p>
           </div>
-          <div className={styles.redirect}>
+          <div className={styles.redirect} onClick={()=>navigate("/shopsearch")}>
             <img className = {styles.icon} src={shops} alt="shops"/>
             <p className={styles.text}>Sklepy</p>
           </div>
-          <div className={styles.redirect} onClick={()=>navigate("/product")}>
+          <div className={styles.redirect} onClick={()=>navigate("/productsearch")}>
             <img className={styles.icon} src={products} alt="product"/>
             <p className={styles.text}>Produkty</p>
           </div>
