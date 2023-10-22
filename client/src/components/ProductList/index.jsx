@@ -55,8 +55,8 @@ const ProductList = () => {
           city: selectedCity,
           product: selectedProduct
         })
-        console.log("prods:", response.data[0].shop_has_products)
-        setSearchResults(response.data[0].shop_has_products)
+        console.log("prods:", response.data)
+        setSearchResults(response.data)
         setError(null)
       } catch (error) {
         setError("Błąd wyszukiwania")
@@ -98,13 +98,17 @@ const ProductList = () => {
               <tr>
                 <th>Nazwa sklepu</th>
                 <th>Ulica</th>
+                <th>Najniższa cena</th>
+                <th>Najwyższa cena</th>
               </tr>
             </thead>
             <tbody>
               {searchResults.map((result) => (
                 <tr key={result.id}>
-                  <td>{result.Shop.name}</td>
-                  <td>{result.Shop.address}</td>
+                  <td>{result.name}</td>
+                  <td>{result.address}</td>
+                  <td>{result.shop_has_products[0].price_reads[0].minPrice}</td>
+                  <td>{result.shop_has_products[0].price_reads[0].maxPrice}</td>
                 </tr>
               ))}
             </tbody>
