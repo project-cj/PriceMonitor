@@ -20,8 +20,60 @@ router.get('/', async (req, res) => {
 router.post('/search', async (req, res) => {
   try {
     const city = req.body.city
-    const product = req.body.product
-    const products = await models.product.findAll({
+    productId = req.body.product
+
+    const products = await models.shop.findAll({
+      attributes: [
+        'name',
+        'address',
+      ],
+      include: [
+        {
+          model: models.shop_has_product,
+          as: 'shop_has_products',
+          include: [
+            {
+              model: models.product,
+              as: 'Product',
+              where: {
+                id: productId
+              },
+            },
+            {
+              model: models.price_read,
+              as: 'price_reads',
+              attributes: [
+                [sequelize.fn('MIN', sequelize.col('price')), 'minPrice'],
+                [sequelize.fn('MAX', sequelize.col('price')), 'maxPrice'],
+              ]
+            },
+          ],
+        },
+        {
+          model: models.street,
+          as: 'Street',
+          attributes: ['name'],
+          include: [
+            {
+              model: models.city,
+              as: 'City',
+              where: {
+                name: city
+              },
+            },
+          ],
+        },
+      ],
+    });
+    
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania produktów.' });
+  }
+})
+
+    /*const products = await models.product.findAll({
       attributes: ['name'],
       where: {
         Id: product
@@ -30,7 +82,6 @@ router.post('/search', async (req, res) => {
         {
           model: models.shop_has_product, // Uwzględnij model ShopHasProduct
           as: 'shop_has_products',
-          required: true,
           include: [
             {
               model: models.shop,
@@ -55,12 +106,13 @@ router.post('/search', async (req, res) => {
         }
       ]
     });
+    
     res.json(products);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania produktów.' });
   }
-})
+})*/
 
 router.get('/:id', async (req, res) => {
   const productId = req.params.id; 
