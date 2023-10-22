@@ -72,7 +72,7 @@ const ProductList = () => {
     <div className={styles.product_container}>
         <div className={styles.product_container_2}>
       <h2>Wyszukaj produkt</h2>
-      {error && <p>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
       <select className={styles.select_style} onChange={(e) => setSelectedCity(e.target.value)}>
         <option value="" selected hidden>Wybierz miasto</option>
         {cities.map((city) => (

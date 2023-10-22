@@ -62,3 +62,9 @@ h2 {
 .searchResults td{
     border-bottom: 1px solid black;
 }
+.error{
+    font-size: 1.5vw;
+    width: 300px;
+    text-align: center;
+    border: 1px solid black;
+}
