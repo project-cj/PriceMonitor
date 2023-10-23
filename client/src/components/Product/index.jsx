@@ -11,6 +11,7 @@ const Product = () => {
   const [error, setError] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
 
+  
   const fetchProductData = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/product/${product}`);
@@ -18,14 +19,14 @@ const Product = () => {
       setSearchResults(response.data)
     } catch (error) {
       console.log(error)
-      setError("Wystąpił błąd podczas pobierania miast.");
+      setError("Wystąpił błąd podczas pobierania danych.");
     }
   };
   useEffect(() => {
     fetchProductData();
     console.log(searchResults)
   }, []);
-
+  
   return (
     <div className={styles.shop_container}>
       <div className={styles.shop_container_2}>
@@ -33,21 +34,26 @@ const Product = () => {
         {error && <p className={styles.error}>{error}</p>}
         {searchResults && 
           <div>
-            <p className={styles.title}>Wyniki wyszukiwania</p>
+            <p>Marka: {searchResults.Brand.name}</p>
+            <p>Produkt: {searchResults.name}</p>
+            <p>Podkategoria: {searchResults.Subcategory.name}</p>
+            <p>Kategoria: {searchResults.Subcategory.Category.name}</p>
+            
             <table className={styles.searchResults}>
               <thead>
                 <tr>
-                  <th>Nazwa</th>
-                  <th>kod</th>
-                  <th>id</th>
+                  <th>Sklep</th>
+                  <th>Ulica</th>
+                  <th>Cena</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>{searchResults.name}</td>
-                  <td>{searchResults.code}</td>
-                  <td>{searchResults.Brand_id}</td>
+              {searchResults.shop_has_products.map((result, index) => (
+                <tr key={index}>
+                  <td>{result.Shop.name}</td>
+                  <td>{result.Shop.address}</td>  
                 </tr>
+              ))}
               </tbody>
             </table>
           </div>

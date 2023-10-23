@@ -3,7 +3,8 @@ const router = express.Router();
 
 const {DataTypes} = require('sequelize');
 const sequelize = require('../db.js')
-const Product = require('../models2/product.js')(sequelize, DataTypes);
+const initModels = require('../models2/init-models.js');
+var models = initModels(sequelize)
 
 router.get('/', async (req, res) => {
     try {
@@ -19,9 +20,36 @@ router.get('/', async (req, res) => {
     const id = req.params.id;
     console.log("ID:", id)
     try {
-      const product = await Product.findByPk(id);
+      const product = await models.product.findByPk(id, {
+        include: [
+          {
+            model: models.brand,
+            as: 'Brand'
+          },
+          {
+            model: models.subcategory,
+            as: 'Subcategory',
+            include: [
+              {
+                model: models.category,
+                as: 'Category'
+              }
+            ]
+          },
+          {
+            model: models.shop_has_product,
+            as: 'shop_has_products',
+            include: [
+              {
+                model: models.shop,
+                as: 'Shop'
+              }
+            ]
+          }
+        ]
+      });
       if (product) {
-        res.send(product);
+        res.json(product);
       } else {
         res.status(404).json({ error: 'Produkt nie został znaleziony.' });
       }
