@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     try {
       const product = await Product.findByPk(id);
       if (product) {
-        res.json(product);
+        res.send(product);
       } else {
         res.status(404).json({ error: 'Produkt nie został znaleziony.' });
       }

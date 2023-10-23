@@ -11,16 +11,19 @@ const Product = () => {
   const [error, setError] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
 
+  const fetchProductData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/product/${product}`);
+      console.log(response.data)
+      setSearchResults(response.data)
+    } catch (error) {
+      console.log(error)
+      setError("Wystąpił błąd podczas pobierania miast.");
+    }
+  };
   useEffect(() => {
-    const fetchProductData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/api/product/${product}`);
-        console.log(response.data)
-      } catch (error) {
-        setError("Wystąpił błąd podczas pobierania miast.");
-      }
-    };
     fetchProductData();
+    console.log(searchResults)
   }, []);
 
   return (
@@ -28,25 +31,27 @@ const Product = () => {
       <div className={styles.shop_container_2}>
         <p className={styles.title}>Strona produktu</p>
         {error && <p className={styles.error}>{error}</p>}
-        {searchResults.length > 0 && (
+        {searchResults && 
           <div>
             <p className={styles.title}>Wyniki wyszukiwania</p>
             <table className={styles.searchResults}>
               <thead>
                 <tr>
-                  <th>tbf</th>
+                  <th>Nazwa</th>
+                  <th>kod</th>
+                  <th>id</th>
                 </tr>
               </thead>
               <tbody>
-                {searchResults.map((result) => (
-                  <tr key={result.id}>
-                    <td>{result.name}</td>
-                  </tr>
-                ))}
+                <tr>
+                  <td>{searchResults.name}</td>
+                  <td>{searchResults.code}</td>
+                  <td>{searchResults.Brand_id}</td>
+                </tr>
               </tbody>
             </table>
           </div>
-        )}
+        }
       </div>
     </div>
   );
