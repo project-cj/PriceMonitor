@@ -116,8 +116,6 @@ const ProductList = () => {
                 <tr key={index}>
                   <td>{result.name}</td>
                   <td>{result.address}</td>
-                  <td>{result.shop_has_products[index].price_reads[0].minPrice}</td>
-                  <td>{result.shop_has_products[index].price_reads[0].maxPrice}</td>
                   <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(selectedProduct)} alt="x"></img></td>  
                 </tr>
               ))}

@@ -8,7 +8,7 @@ var models = initModels(sequelize)
 
 router.get('/', async (req, res) => {
     try {
-      const shops = await Shop.findAll();
+      const shops = await models.shop.findAll();
       res.json(shops);
     } catch (error) {
       console.error(error);
