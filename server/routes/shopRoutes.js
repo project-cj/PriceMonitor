@@ -3,7 +3,8 @@ const router = express.Router();
 
 const {DataTypes} = require('sequelize');
 const sequelize = require('../db.js')
-const Shop = require('../models2/shop.js')(sequelize, DataTypes);
+const initModels = require('../models2/init-models.js');
+var models = initModels(sequelize)
 
 router.get('/', async (req, res) => {
     try {
@@ -19,7 +20,37 @@ router.get('/', async (req, res) => {
     const id = req.params.id;
   
     try {
-      const shop = await Shop.findByPk(id);
+      const shop = await models.shop.findByPk(id,{
+        include: [{
+          model: models.street,
+          as: 'Street',
+          include: [{
+            model: models.city,
+            as: 'City',
+            include: [{
+              model: models.voivodeship,
+              as: 'Voivodeship'
+            }]
+          }]
+        },
+        {
+          model: models.shop_has_product,
+          as: 'shop_has_products',
+          include: [{
+            model: models.price_read,
+            as: 'price_reads'
+          },
+        {
+          model: models.product,
+          as: 'Product',
+          include: [{
+            model: models.brand,
+            as: 'Brand'
+          }]
+        }]
+        }
+      ]
+      });
       if (shop) {
         res.json(shop);
       } else {
@@ -30,11 +61,4 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Wystąpił błąd podczas pobierania sklepu.' });
     }
   });
-  router.post('/search', async (req, res) => {
-    try {
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania produktów.' });
-    }
-  })
 module.exports = router;

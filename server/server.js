@@ -11,6 +11,7 @@ const productListRoutes = require('./routes/productListRoutes.js');
 const cityRoutes = require('./routes/cityRoutes.js');
 const shopRoutes = require('./routes/shopRoutes.js');
 const productRoutes = require('./routes/productRoutes.js')
+const shopListRoutes = require('./routes/shopListRoutes.js')
 const shopHasAProductsRoutes = require('./routes/shophasaproductRoutes.js');
 //middleware
 app.use(express.json())
@@ -19,6 +20,7 @@ app.use(cors())
 app.use("/api/users", userRoutes)
 app.use("/api/auth", authRoutes)
 app.use("/api/products", productListRoutes)
+app.use("/api/shops", shopListRoutes)
 app.use("/api/product", productRoutes)
 app.use("/api/cities", cityRoutes)
 app.use("/api/shop", shopRoutes)
