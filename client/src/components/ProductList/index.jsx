@@ -108,14 +108,16 @@ const ProductList = () => {
                 <th>Ulica</th>
                 <th>Najniższa cena</th>
                 <th>Najwyższa cena</th>
-                <th>Produkt</th>
+                <th>Przejdź do sklepu</th>
               </tr>
             </thead>
             <tbody>
               {searchResults.map((result, index) => (
                 <tr key={index}>
-                  <td>{result.name}</td>
-                  <td>{result.address}</td>
+                  <td>{result.shop_name}</td>
+                  <td>{result.shop_address}</td>
+                  <td>{result.min_price}</td>
+                  <td>{result.max_price}</td>
                   <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(selectedProduct)} alt="x"></img></td>  
                 </tr>
               ))}

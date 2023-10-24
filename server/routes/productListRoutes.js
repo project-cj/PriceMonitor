@@ -20,51 +20,43 @@ router.get('/', async (req, res) => {
 router.post('/search', async (req, res) => {
   try {
     const city = req.body.city
-    productId = req.body.product
+    const productId = req.body.product
 
-    const products = await models.shop.findAll({
-      attributes: [
-        'name',
-        'address',
-      ],
-      include: [
-        {
-          model: models.shop_has_product,
-          as: 'shop_has_products',
-          include: [
-            {
-              model: models.product,
-              as: 'Product',
-              where: {
-                id: productId
-              },
-            },
-            {
-              model: models.price_read,
-              as: 'price_reads',
-              attributes: [
-                [sequelize.fn('MAX', sequelize.col('price')), 'maxPrice'],
-                [sequelize.fn('MIN', sequelize.col('price')), 'minPrice'],
-              ],
-            },
-          ],
-        },
-        {
-          model: models.street,
-          as: 'Street',
-          attributes: ['name'],
-          include: [
-            {
-              model: models.city,
-              as: 'City',
-              where: {
-                name: city
-              },
-            },
-          ],
-        },
-      ],
-    });
+    const products = await sequelize.query(
+      `WITH ShopProductPrices AS (
+        SELECT
+          shp.id AS shop_product_id,
+          p.name AS product_name,
+          s.name AS shop_name,
+          s.address AS shop_address,
+          pr.price AS price
+        FROM
+          shop s
+        JOIN shop_has_product shp ON shp.Shop_id = s.id
+        JOIN product p ON p.id = shp.Product_id
+        JOIN price_read pr ON pr.Shop_has_Product_id = shp.id
+  	    JOIN street st ON st.id = s.Street_id
+  	    JOIN city ct ON ct.id = st.City_id
+    	  WHERE
+      	  p.id = :product AND ct.id = :cityName
+      )
+      
+      SELECT
+        spp.shop_product_id,
+        spp.product_name,
+        spp.shop_name,
+        spp.shop_address,
+        MAX(spp.price) AS max_price,
+        MIN(spp.price) AS min_price
+      FROM
+        ShopProductPrices spp
+      GROUP BY
+        spp.shop_product_id, spp.product_name, spp.shop_name, spp.shop_address;`,
+      {
+        type: sequelize.QueryTypes.SELECT,
+        replacements: { product: productId, cityName: city },
+      }
+    );
     console.log(products)
     res.json(products);
   } catch (error) {
