@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useLocation} from "react";
 import { useNavigate } from "react-router-dom";
+import {useDebounce} from "use-debounce"
 import axios from "axios";
 import styles from "./styles.module.css";
 import vectorRight from "../../images/vectorRight.png"
@@ -14,6 +15,10 @@ const ProductList = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCity, setSelectedCity] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+  const [searchField, setSearchField] = useState("");
+  const [foundProducts, setFoundProducts] = useState([]);
+  const [debouncedSearchField] = useDebounce(searchField, 500);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -51,7 +56,34 @@ const ProductList = () => {
     fetchShops();
   }, []); 
 
+  useEffect(() => {
+    if(searchField.length>0){
+      try {
+        handleSearchLike(searchField)
+      } catch (error) {
+        setError("Błąd wyszukiwania")
+      }
+    }
+  }, [debouncedSearchField])
 
+  const handleSearchLike = async (value) => {
+    try {
+      setSearchField(value)
+      const response = await axios.get(`http://localhost:8080/api/products/search_like/${searchField}`)
+      setFoundProducts(response.data)
+      console.log(selectedProduct)
+    } catch (error) {
+    }
+  }
+  const handleSearchField = (val) => {
+    setSearchField(val)
+    const selectedOption = foundProducts.find(prod => prod.name === val)
+    if(selectedOption){
+      setSelectedProduct(selectedOption.id)
+    } else {
+      setSelectedProduct(null)
+    }
+  }
   const handleSearch = async () => {
     if (selectedCity && selectedProduct) {
       try {
@@ -72,8 +104,8 @@ const ProductList = () => {
     }
   };
 
-  const navigateProduct = (item) => {
-    navigate('/product', {state: {item}})
+  const navigateProduct = (item, item2) => {
+    navigate('/product', {state: {item, item2}})
   }
   
   return (
@@ -89,15 +121,23 @@ const ProductList = () => {
           </option>
         ))}
       </select>
-      <select className={styles.select_style} onChange={(e) => setSelectedProduct(e.target.value)}>
+      {/* <select className={styles.select_style} onChange={(e) => setSelectedProduct(e.target.value)}>
         <option value="" selected hidden>Wybierz produkt</option>
         {products.map((product) => (
           <option key={product.id} value={product.id}>
             {product.name}
           </option>
         ))}
-      </select>
-      <button onClick={handleSearch} className={styles.green_btn}>Szukaj</button>
+      </select> */}
+      <input type="text" className={styles.select_style} onChange={(e) => handleSearchField(e.target.value)} list="words"></input>
+      <button onClick={handleSearch} className={styles.green_btn}>Szukaj</button><br/>
+      {foundProducts.length > 0 && (
+        <datalist id="words">
+          {foundProducts.map((word, index) => (
+            <option key={word.id} value={word.name}></option>
+          ))}
+        </datalist>
+      )}
       {searchResults.length > 0 && (
         <div>
           <p className={styles.title}>Wyniki wyszukiwania</p>
@@ -108,17 +148,17 @@ const ProductList = () => {
                 <th>Ulica</th>
                 <th>Najniższa cena</th>
                 <th>Najwyższa cena</th>
-                <th>Produkt</th>
+                <th>Przejdź do sklepu</th>
               </tr>
             </thead>
             <tbody>
               {searchResults.map((result, index) => (
                 <tr key={index}>
-                  <td>{result.name}</td>
-                  <td>{result.address}</td>
-                  <td>{result.shop_has_products[index].price_reads[0].minPrice}</td>
-                  <td>{result.shop_has_products[index].price_reads[0].maxPrice}</td>
-                  <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(selectedProduct)} alt="x"></img></td>  
+                  <td>{result.shop_name}</td>
+                  <td>{result.shop_address}</td>
+                  <td>{result.min_price}</td>
+                  <td>{result.max_price}</td>
+                  <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(selectedProduct, result.shop_id)} alt="x"></img></td>  
                 </tr>
               ))}
             </tbody>

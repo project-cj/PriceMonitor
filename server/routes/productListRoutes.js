@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router(); 
 
-const {DataTypes} = require('sequelize');
+const {DataTypes, Op} = require('sequelize');
 const sequelize = require('../db.js');
 const initModels = require('../models2/init-models.js');
 var models = initModels(sequelize)
@@ -20,8 +20,9 @@ router.get('/', async (req, res) => {
 router.post('/search', async (req, res) => {
   try {
     const city = req.body.city
-    productId = req.body.product
+    const productId = req.body.product
 
+<<<<<<< HEAD
     const products = await models.shop.findAll({
       attributes: [
         'name',
@@ -67,6 +68,45 @@ router.post('/search', async (req, res) => {
         },
       ],
     });
+=======
+    const products = await sequelize.query(
+      `WITH ShopProductPrices AS (
+        SELECT
+          shp.id AS shop_product_id,
+          p.name AS product_name,
+          s.name AS shop_name,
+          s.address AS shop_address,
+          s.id AS shop_id,
+          pr.price AS price
+        FROM
+          shop s
+        JOIN shop_has_product shp ON shp.Shop_id = s.id
+        JOIN product p ON p.id = shp.Product_id
+        JOIN price_read pr ON pr.Shop_has_Product_id = shp.id
+  	    JOIN street st ON st.id = s.Street_id
+  	    JOIN city ct ON ct.id = st.City_id
+    	  WHERE
+      	  p.id = :product AND ct.id = :cityName
+      )
+      
+      SELECT
+        spp.shop_product_id,
+        spp.product_name,
+        spp.shop_name,
+        spp.shop_address,
+        spp.shop_id,
+        MAX(spp.price) AS max_price,
+        MIN(spp.price) AS min_price
+      FROM
+        ShopProductPrices spp
+      GROUP BY
+        spp.shop_product_id, spp.product_name, spp.shop_name, spp.shop_address;`,
+      {
+        type: sequelize.QueryTypes.SELECT,
+        replacements: { product: productId, cityName: city },
+      }
+    );
+>>>>>>> a5a732799ef91a26bef281a5d9a138f44a26b512
     console.log(products)
     res.json(products);
   } catch (error) {
@@ -74,48 +114,30 @@ router.post('/search', async (req, res) => {
     res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania produktów.' });
   }
 })
+<<<<<<< HEAD
 
 
     /*const products = await models.product.findAll({
       attributes: ['name'],
+=======
+router.get('/search_like/:word', async (req, res) => {
+  const word = req.params.word;
+  console.log(word)
+  try {
+    const products = await models.product.findAll({
+>>>>>>> a5a732799ef91a26bef281a5d9a138f44a26b512
       where: {
-        Id: product
-      },
-      include: [
-        {
-          model: models.shop_has_product, // Uwzględnij model ShopHasProduct
-          as: 'shop_has_products',
-          include: [
-            {
-              model: models.shop,
-              as: 'Shop',
-              include: [
-                {
-                  model: models.street,
-                  as: 'Street',
-                  include: [
-                    {
-                      model: models.city,
-                      as: 'City',
-                      where: {
-                        name: city
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+        name: {
+          [Op.like] : [`%${word}%`]
         }
-      ]
+      }
     });
-    
     res.json(products);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania produktów.' });
+    res.status(500).json({ error: 'Wystąpił błąd podczas pobierania produktów.' });
   }
-})*/
+});
 
 router.get('/:id', async (req, res) => {
   const productId = req.params.id; 
