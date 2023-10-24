@@ -16,8 +16,9 @@ router.get('/', async (req, res) => {
     }
   });
 
-  router.get('/:id', async (req, res) => {
+  router.get('/:id/:shopId', async (req, res) => {
     const id = req.params.id;
+    const shopId = req.params.shopId;
     console.log("ID:", id)
     try {
       const product = await models.product.findByPk(id, {
@@ -42,7 +43,26 @@ router.get('/', async (req, res) => {
             include: [
               {
                 model: models.shop,
-                as: 'Shop'
+                as: 'Shop',
+                where: {
+                  id: shopId
+                },
+                include: [
+                  {
+                    model: models.street,
+                    as: 'Street',
+                    include: [
+                      {
+                        model: models.city,
+                        as: 'City'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                model: models.price_read,
+                as: 'price_reads',
               }
             ]
           }
@@ -58,5 +78,7 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Wystąpił błąd podczas pobierania produktu.' });
     }
   });
+
+
   
 module.exports = router;

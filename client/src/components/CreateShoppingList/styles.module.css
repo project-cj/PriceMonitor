@@ -1,11 +1,11 @@
-.shop_container {
+.container {
 	width: 100%;
 	min-height: 95vh;
 	background-color: #BCE0CF;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-}.shop_container_2{
+}.container_2{
 	background-color: #6d7f77;
 	width: 97%;
 	min-height: 90vh;
@@ -22,7 +22,7 @@
 
 .search_field {
     width: 60%; 
-    padding: 10px;
+    padding: 10px; 
     margin: 10px 0; 
     margin-left: 10px;
   }
@@ -74,4 +74,9 @@
     width: 300px;
     text-align: center;
     border: 1px solid black;
+}
+input {
+    width: 60%;
+    padding: 10px; 
+    margin: 10px 0; 
 }

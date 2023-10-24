@@ -104,8 +104,8 @@ const ProductList = () => {
     }
   };
 
-  const navigateProduct = (item) => {
-    navigate('/product', {state: {item}})
+  const navigateProduct = (item, item2) => {
+    navigate('/product', {state: {item, item2}})
   }
   
   return (
@@ -158,7 +158,7 @@ const ProductList = () => {
                   <td>{result.shop_address}</td>
                   <td>{result.min_price}</td>
                   <td>{result.max_price}</td>
-                  <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(selectedProduct)} alt="x"></img></td>  
+                  <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(selectedProduct, result.shop_id)} alt="x"></img></td>  
                 </tr>
               ))}
             </tbody>

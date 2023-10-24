@@ -41,8 +41,8 @@ const NavBar = () => {
     <div className={styles.container}>
         <img className = {styles.logo} src={logo}/>
         <div className={styles.menu}>
-          <div className={styles.redirect} onClick={()=>navigate("/main")}>
-            <img className = {styles.icon} src={mainPage} alt="main"/>
+          <div className={styles.redirect} onClick={()=>navigate("/home")}>
+            <img className = {styles.icon} src={mainPage} alt="home"/>
             <p className={styles.text}>Strona główna</p>
           </div>
           <div className={styles.redirect} onClick={()=>navigate("/shopsearch")}>
@@ -60,7 +60,7 @@ const NavBar = () => {
                 <div className={styles.dropdownComponent}>Konto użytkownika<img className={styles.iconSmall} src={user}></img></div>
                 <div className={styles.dropdownComponent}>Dodaj cenę produktu<img className={styles.iconSmall} src={addproduct}></img></div>
                 <div className={styles.dropdownComponent}>Zaproponuj nowy sklep<img className={styles.iconSmall} src={newshop}></img></div>
-                <div className={styles.dropdownComponent}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
+                <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglist')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
                 <div className={styles.dropdownComponent} onClick={() => handleLogout()}>Wyloguj<img className={styles.iconSmall} src={logout}></img></div>
               </div>
             </div>
