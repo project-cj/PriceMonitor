@@ -13,6 +13,7 @@ const shopRoutes = require('./routes/shopRoutes.js');
 const productRoutes = require('./routes/productRoutes.js')
 const shopListRoutes = require('./routes/shopListRoutes.js')
 const shopHasAProductsRoutes = require('./routes/shophasaproductRoutes.js');
+const passwordResetRoutes = require('./routes/passwordResetRoutes.js')
 //middleware
 app.use(express.json())
 app.use(cors())
@@ -25,6 +26,7 @@ app.use("/api/product", productRoutes)
 app.use("/api/cities", cityRoutes)
 app.use("/api/shop", shopRoutes)
 app.use("/api/shophasaproducts", shopHasAProductsRoutes)
+app.use("/api/passwordreset", passwordResetRoutes)
 
 const port = process.env.PORT ;
 

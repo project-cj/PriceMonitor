@@ -3,6 +3,7 @@ import jwt from "jwt-decode"
 
 import Signup from "./components/Signup"
 import Login from "./components/Login"
+import PasswordReset from "./components/PasswordReset"
 
 import Main from "./components/Main"
 import Home from "./components/Home"
@@ -10,6 +11,7 @@ import ProductList from "./components/ProductList"
 import ShopSearch from "./components/ShopSearch"
 import Shop from "./components/Shop"
 import Product from "./components/Product"
+import PasswordResetChange from "./components/PasswordResetChange"
 
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
     <Routes>
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/passwordreset" element={<PasswordReset />} />
+      <Route path="/passwordreset/change" element={<PasswordResetChange />} />
       {user && decode.status === "USER" && <Route path="/main" exact element={<Main />} />}
       
       {user && decode.status === "USER" && <Route path="/productsearch" exact element={<ProductList />} />}
