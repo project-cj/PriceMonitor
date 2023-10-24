@@ -21,9 +21,9 @@
 }
 
 .search_field {
-    width: 60%; /* 100% szerokości kontenera */
-    padding: 10px; /* Zwiększ odstęp */
-    margin: 10px 0; /* Odstęp górny i dolny */
+    width: 60%; 
+    padding: 10px; 
+    margin: 10px 0; 
     margin-left: 10px;
   }
 

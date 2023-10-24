@@ -42,10 +42,12 @@ router.post('/search', async (req, res) => {
             {
               model: models.price_read,
               as: 'price_reads',
+              
               attributes: [
                 [sequelize.fn('MIN', sequelize.col('price')), 'minPrice'],
                 [sequelize.fn('MAX', sequelize.col('price')), 'maxPrice'],
               ]
+              
             },
           ],
         },
@@ -72,6 +74,7 @@ router.post('/search', async (req, res) => {
     res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania produktów.' });
   }
 })
+
 
     /*const products = await models.product.findAll({
       attributes: ['name'],

@@ -10,6 +10,8 @@ import ProductList from "./components/ProductList"
 import ShopSearch from "./components/ShopSearch"
 import Shop from "./components/Shop"
 import Product from "./components/Product"
+import ShoppingListsView from "./components/ShoppingListsView"
+import CreateShoppingList from "./components/CreateShoppingList"
 
 
 function App() {
@@ -28,10 +30,11 @@ function App() {
 
       {user && decode.status === "USER" && <Route path="/shop" exact element={<Shop />} />}
       {user && decode.status === "USER" && <Route path="/product" exact element={<Product />} />}
-
+      {user && decode.status === "USER" && <Route path="/shoppinglist" exact element={<ShoppingListsView />} />}
+      {user && decode.status === "USER" && <Route path="/create-list" exact element={<CreateShoppingList />} />}
+     
       <Route path="/home" exact element={<Home />} />
 
-      
       <Route path="/" element={<Navigate replace to="/home" />} />
       <Route path="/*" element={<Navigate replace to="/home" />} />
     </Routes>
