@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles.module.css";
+import vectorRight from "../../images/vectorRight.png"
 
 const Shop = () => {
+  const navigate = useNavigate();
 
   const location = useLocation();
   const shop = location.state?.item
@@ -28,6 +30,10 @@ const Shop = () => {
     console.log('res',searchResults)
   }, []);
 
+  const navigateProduct = (item, item2) => {
+    navigate('/product', {state: {item, item2}})
+  }
+
   if(isLoading){
     return (
       <div>
@@ -42,22 +48,27 @@ const Shop = () => {
           {error && <p className={styles.error}>{error}</p>}
           {searchResults &&
             <div className={styles.shop_container_2}>
-                <p>Nazwa: {searchResults.name}</p>
-                <p>Ulica: {searchResults.address}</p>
-                <p>Miasto: {searchResults.Street.City.name}</p>
+                <p>Nazwa: {searchResults[0].shop_name}</p>
+                <p>Ulica: {searchResults[0].shop_address}</p>
+                <p>Miasto: {searchResults[0].city_name}</p>
                 <table className={styles.searchResults}>
                   <thead>
                     <tr>
                       <th>Produkt</th>
                       <th>Marka</th>
-                      <th>Przejdź</th>
+                      <th>Najniższa cena</th>
+                      <th>Najwyższa cena</th>
+                      <th>Przejdź do produktu</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {searchResults.shop_has_products.map((result, index) => (
+                  {searchResults.map((result, index) => (
                     <tr key={index}>
-                      <td>{result.Product.name}</td>
-                      <td>{result.Product.Brand.name}</td>  
+                      <td>{result.product_name}</td>
+                      <td>{result.brand_name}</td>
+                      <td>{result.min_price}</td>
+                      <td>{result.max_price}</td>
+                      <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(result.product_id, result.shop_id)} alt="x"></img></td> 
                     </tr>
                   ))}
                   </tbody>

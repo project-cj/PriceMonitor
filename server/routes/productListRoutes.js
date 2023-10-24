@@ -29,6 +29,7 @@ router.post('/search', async (req, res) => {
           p.name AS product_name,
           s.name AS shop_name,
           s.address AS shop_address,
+          s.id AS shop_id,
           pr.price AS price
         FROM
           shop s
@@ -46,6 +47,7 @@ router.post('/search', async (req, res) => {
         spp.product_name,
         spp.shop_name,
         spp.shop_address,
+        spp.shop_id,
         MAX(spp.price) AS max_price,
         MIN(spp.price) AS min_price
       FROM
@@ -71,7 +73,7 @@ router.get('/search_like/:word', async (req, res) => {
     const products = await models.product.findAll({
       where: {
         name: {
-          [Op.like] : [`${word}%`]
+          [Op.like] : [`%${word}%`]
         }
       }
     });
