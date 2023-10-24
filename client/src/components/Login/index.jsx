@@ -40,7 +40,7 @@ const Login = () => {
                 </form>
                 <div className={styles.register}>
                     <p>Nie masz konta? <text className={styles.blue_text} onClick={() => navigate('/signup')}>Zarejestruj się</text></p>
-                    <p>Zapomniałeś hasła? <text className={styles.blue_text}>Odzyskaj hasło</text></p>
+                    <p>Zapomniałeś hasła? <text className={styles.blue_text} onClick={() => navigate('/passwordreset')}>Odzyskaj hasło</text></p>
                 </div>
                 <img className = {styles.cart} src={cart} hidden></img>
             </div>
