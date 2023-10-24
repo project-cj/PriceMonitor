@@ -8,7 +8,9 @@ var models = initModels(sequelize)
 
 router.get('/', async (req, res) => {
     try {
+      console.log("-------------------------------")
       const shops = await models.shop.findAll();
+      console.log("x--------------------------------")
       res.json(shops);
     } catch (error) {
       console.error(error);
@@ -18,7 +20,6 @@ router.get('/', async (req, res) => {
 
   router.get('/:id', async (req, res) => {
     const id = req.params.id;
-  
     try {
       const shop = await sequelize.query(
         `WITH ShopProductPrices AS (

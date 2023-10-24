@@ -1,30 +1,42 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('shop_has_product', {
+  return sequelize.define('shop', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    Shop_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'shop',
-        key: 'id'
-      }
+    name: {
+      type: DataTypes.STRING(45),
+      allowNull: false
     },
-    Product_id: {
+    x_location: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    y_location: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    status: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    address: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
+    Street_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'product',
+        model: 'street',
         key: 'id'
       }
     }
   }, {
-    tableName: 'shop_has_product',
+    tableName: 'shop',
     timestamps: false,
     indexes: [
       {
@@ -36,7 +48,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "id_UNIQUE",
+        name: "Shop_id_UNIQUE",
         unique: true,
         using: "BTREE",
         fields: [
@@ -44,17 +56,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "fk_Shop_has_Product_Product1_idx",
+        name: "fk_Shop_Street1_idx",
         using: "BTREE",
         fields: [
-          { name: "Product_id" },
-        ]
-      },
-      {
-        name: "fk_Shop_has_Product_Shop1_idx",
-        using: "BTREE",
-        fields: [
-          { name: "Shop_id" },
+          { name: "Street_id" },
         ]
       },
     ]

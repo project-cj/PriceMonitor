@@ -34,11 +34,11 @@ const ShopSearch = () => {
         const response = await axios.get("http://localhost:8080/api/shops")
         setShops(response.data);
       } catch (error) {
-        setError("Wystąpił błąd podczas pobierania produktów.");
+        setError("Wystąpił błąd podczas pobierania sklepow.");
       }
     };
     fetchShops();
-  }, [selectedCity]);
+  }, []);
 
 
   const handleSearch = async () => {

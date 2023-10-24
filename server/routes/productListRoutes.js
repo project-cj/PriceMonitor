@@ -22,53 +22,6 @@ router.post('/search', async (req, res) => {
     const city = req.body.city
     const productId = req.body.product
 
-<<<<<<< HEAD
-    const products = await models.shop.findAll({
-      attributes: [
-        'name',
-        'address',
-      ],
-      include: [
-        {
-          model: models.shop_has_product,
-          as: 'shop_has_products',
-          include: [
-            {
-              model: models.product,
-              as: 'Product',
-              where: {
-                id: productId
-              },
-            },
-            {
-              model: models.price_read,
-              as: 'price_reads',
-              
-              attributes: [
-                [sequelize.fn('MIN', sequelize.col('price')), 'minPrice'],
-                [sequelize.fn('MAX', sequelize.col('price')), 'maxPrice'],
-              ]
-              
-            },
-          ],
-        },
-        {
-          model: models.street,
-          as: 'Street',
-          attributes: ['name'],
-          include: [
-            {
-              model: models.city,
-              as: 'City',
-              where: {
-                name: city
-              },
-            },
-          ],
-        },
-      ],
-    });
-=======
     const products = await sequelize.query(
       `WITH ShopProductPrices AS (
         SELECT
@@ -106,7 +59,6 @@ router.post('/search', async (req, res) => {
         replacements: { product: productId, cityName: city },
       }
     );
->>>>>>> a5a732799ef91a26bef281a5d9a138f44a26b512
     console.log(products)
     res.json(products);
   } catch (error) {
@@ -114,18 +66,11 @@ router.post('/search', async (req, res) => {
     res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania produktów.' });
   }
 })
-<<<<<<< HEAD
-
-
-    /*const products = await models.product.findAll({
-      attributes: ['name'],
-=======
 router.get('/search_like/:word', async (req, res) => {
   const word = req.params.word;
   console.log(word)
   try {
     const products = await models.product.findAll({
->>>>>>> a5a732799ef91a26bef281a5d9a138f44a26b512
       where: {
         name: {
           [Op.like] : [`%${word}%`]
