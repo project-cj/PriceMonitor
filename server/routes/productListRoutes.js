@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router(); 
 
-const {DataTypes} = require('sequelize');
+const {DataTypes, Op} = require('sequelize');
 const sequelize = require('../db.js');
 const initModels = require('../models2/init-models.js');
 var models = initModels(sequelize)
@@ -64,8 +64,23 @@ router.post('/search', async (req, res) => {
     res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania produktów.' });
   }
 })
-
-  
+router.get('/search_like/:word', async (req, res) => {
+  const word = req.params.word;
+  console.log(word)
+  try {
+    const products = await models.product.findAll({
+      where: {
+        name: {
+          [Op.like] : [`${word}%`]
+        }
+      }
+    });
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Wystąpił błąd podczas pobierania produktów.' });
+  }
+});
 
 router.get('/:id', async (req, res) => {
   const productId = req.params.id; 
