@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles.module.css";
 
 const CreateShoppingList = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
 
   const handleCreateList = async () => {
@@ -13,7 +15,8 @@ const CreateShoppingList = () => {
             User_id: token,
           });
           
-      setName(''); 
+      setName('');
+      navigate('/shoppinglist')
     } catch (error) {
       console.error('Błąd podczas tworzenia listy zakupów:', error);
     }

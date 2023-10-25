@@ -12,4 +12,15 @@ function validate(data){
     return schema.validate(data)
 }
 
-module.exports = validate
+function validatePassword(data){
+    const schema = Joi.object({
+        id: Joi.required(),
+        oldPassword: passwordComplexity().required().label("Hasło"),
+        newPassword: passwordComplexity().required().label("Hasło"),
+        repPassword: passwordComplexity().required().valid(Joi.ref('newPassword')).label("Nowe hasła nie są identyczne")
+    })
+    return schema.validate(data)
+}
+
+
+module.exports = {validate, validatePassword}

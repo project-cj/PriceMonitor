@@ -14,6 +14,9 @@ import Product from "./components/Product"
 import PasswordResetChange from "./components/PasswordResetChange"
 import ShoppingListsView from "./components/ShoppingListsView"
 import CreateShoppingList from "./components/CreateShoppingList"
+import UserPanel from "./components/UserPanel"
+import ChangeAlias from "./components/ChangeAlias"
+import ChangePassword from "./components/ChangePassword"
 
 
 function App() {
@@ -36,7 +39,12 @@ function App() {
       {user && decode.status === "USER" && <Route path="/product" exact element={<Product />} />}
       {user && decode.status === "USER" && <Route path="/shoppinglist" exact element={<ShoppingListsView />} />}
       {user && decode.status === "USER" && <Route path="/create-list" exact element={<CreateShoppingList />} />}
-     
+      {user && decode.status === "USER" && <Route path="/userpanel" exact element={<UserPanel />} />}
+      <Route path="/userpanel" element={<Navigate replace to="/login" />} />
+
+      {user && decode.status === "USER" && <Route path="/changealias" exact element={<ChangeAlias />} />}
+      {user && decode.status === "USER" && <Route path="/changepassword" exact element={<ChangePassword />} />}
+
       <Route path="/home" exact element={<Home />} />
 
       <Route path="/" element={<Navigate replace to="/home" />} />

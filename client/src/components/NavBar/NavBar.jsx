@@ -57,7 +57,7 @@ const NavBar = () => {
             <div>
               <div className={styles.userMenu} onClick={() => setMenuOpen(!menuOpen)}>{decodedUser.alias}<img className={styles.icon} src={userGreen}></img><img className={styles.icon} src={burger}></img></div>
               <div className={`${styles.dropdownMenu} ${menuOpen? styles.active : styles.inactive}`}>
-                <div className={styles.dropdownComponent}>Konto użytkownika<img className={styles.iconSmall} src={user}></img></div>
+                <div className={styles.dropdownComponent} onClick ={() => navigate ('/userpanel')}>Konto użytkownika<img className={styles.iconSmall} src={user}></img></div>
                 <div className={styles.dropdownComponent}>Dodaj cenę produktu<img className={styles.iconSmall} src={addproduct}></img></div>
                 <div className={styles.dropdownComponent}>Zaproponuj nowy sklep<img className={styles.iconSmall} src={newshop}></img></div>
                 <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglist')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
