@@ -26,7 +26,8 @@ const PasswordReset = () => {
                 </div>
                     <form className={styles.form_container} onSubmit={handleSubmit}>
                     <p>Email</p>
-                    <input type="email" placeholder="Email" name="email" onChange={(e) => setEmail(e.target.value)} value={email} required className={styles.input} />
+                    <input type="email" placeholder="Email" name="email" onChange={(e) => setEmail(e.target.value)} 
+                    value={email} required className={styles.input} />
                     <p>Na adres wyslemy Ci wiadomosć z nowym haslem</p>
                     {error && <div className={styles.error_msg}>{error}</div>}
                     <button type="submit" className={styles.green_btn}>Wyslij</button>

@@ -67,9 +67,11 @@ const PasswordResetChange = () => {
                 {canReset ? (
                     <form className={styles.form_container}>
                         <p>Nowe hasło</p>
-                        <input type="password" placeholder="Password" name="password" onChange={handleChange} value={data.password} required className={styles.input} />
+                        <input type="password" placeholder="Password" name="password" onChange={handleChange} 
+                        value={data.password} required className={styles.input} />
                         <p>Powtórz nowe hasło</p>
-                        <input type="password" placeholder="Password" name="password_repeat" onChange={handleChange} value={data.password_repeat} required className={styles.input} />
+                        <input type="password" placeholder="Password" name="password_repeat" onChange={handleChange} 
+                        value={data.password_repeat} required className={styles.input} />
                         {error && <div className={styles.error_msg}>{error}</div>}
                         <button type="button" onClick={handleSubmitChangePassword} className={styles.green_btn}>Wyslij</button>
                     </form>

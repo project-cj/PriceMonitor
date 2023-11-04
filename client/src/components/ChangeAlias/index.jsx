@@ -18,6 +18,7 @@ const ChangeAlias = () => {
                 id: id,
                 alias: alias
             });
+            window.alert("Użytkownik pomyślnie zmienił pseudonim")
             navigate("/userpanel")
         } catch (error) {
             console.error('Błąd podczas zmiany pseudonimu: ', error.response.data.message);

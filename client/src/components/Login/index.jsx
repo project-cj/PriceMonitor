@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import styles from "./styles.module.css"
 import cart from "../../images/cart.png"
 
+
 const Login = () => {
     const navigate = useNavigate();
     const [data, setData] = useState({ email: "", password: "" })

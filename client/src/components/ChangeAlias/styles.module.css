@@ -107,6 +107,7 @@
 	color: white;
 	border-radius: 5px;
 	text-align: center;
+	margin-left: 20px;
 }
 
 .white_btn,
@@ -122,4 +123,7 @@
 	cursor: pointer;
 	margin: 20px;
 	border: 2px solid white;
+}
+input{
+	margin-left: 20px;
 }

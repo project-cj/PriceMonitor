@@ -70,10 +70,14 @@
     padding-right: 10px;
 }
 .error{
-    font-size: 1.5vw;
-    width: 300px;
-    text-align: center;
-    border: 1px solid black;
+	width: 370px;
+	padding: 15px;
+	margin: 5px 0;
+	font-size: 14px;
+	background-color: #f34646;
+	color: white;
+	border-radius: 5px;
+	text-align: center;
 }
 .navigateButton{
     text-align: center;

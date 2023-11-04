@@ -3,6 +3,7 @@ import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import styles from "./styles.module.css"
 import cart from "../../images/cart.png"
+
 const Signup = () => {
     const [data, setData] = useState({
         email: "",
@@ -20,6 +21,7 @@ const Signup = () => {
         try {
             const url = "http://localhost:8080/api/users"
             const { data: res } = await axios.post(url, data)
+            window.alert("Użytkownik został pomyślnie zarejestrowany")
             navigate("/login")
             console.log(res.message)
         } catch (error) {

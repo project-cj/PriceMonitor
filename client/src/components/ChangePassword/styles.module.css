@@ -96,7 +96,12 @@
 	background-color: #edf5f3;
 	margin: 5px 0;
 	font-size: 14px;
+	margin-left: 20px;
 }
+.nag {
+	margin-left: 20px;
+	
+  }
 
 .error_msg {
 	width: 370px;
@@ -107,6 +112,7 @@
 	color: white;
 	border-radius: 5px;
 	text-align: center;
+	margin-left: 20px;
 }
 
 .white_btn,
