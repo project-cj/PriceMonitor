@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom"
 import jwt from "jwt-decode"
+import 'leaflet/dist/leaflet.css';
 
 import Signup from "./components/Signup"
 import Login from "./components/Login"
@@ -17,6 +18,7 @@ import CreateShoppingList from "./components/CreateShoppingList"
 import UserPanel from "./components/UserPanel"
 import ChangeAlias from "./components/ChangeAlias"
 import ChangePassword from "./components/ChangePassword"
+import ShopProposal from "./components/ShopProposal"
 
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
       {user && decode.status === "USER" && <Route path="/shoppinglist" exact element={<ShoppingListsView />} />}
       {user && decode.status === "USER" && <Route path="/create-list" exact element={<CreateShoppingList />} />}
       {user && decode.status === "USER" && <Route path="/userpanel" exact element={<UserPanel />} />}
+      {user && decode.status === "USER" && <Route path="/shopproposal" exact element={<ShopProposal />} />}
+
       <Route path="/userpanel" element={<Navigate replace to="/login" />} />
 
       {user && decode.status === "USER" && <Route path="/changealias" exact element={<ChangeAlias />} />}
