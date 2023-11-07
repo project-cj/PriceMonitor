@@ -75,3 +75,7 @@
     text-align: center;
     border: 1px solid black;
 }
+.userDetails{
+    font-size: 1.5vw;
+    margin-left: 15px;
+}

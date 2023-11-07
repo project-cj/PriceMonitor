@@ -59,8 +59,8 @@ const UserPanel = () => {
           {error && <p className={styles.error}>{error}</p>}
           {searchResults && 
             <div className={styles.shop_container_2}>
-              <p>E-mail: {searchResults.email}</p>
-              <p>Alias: {searchResults.alias}</p>
+              <p className={styles.userDetails}>E-mail: {searchResults.email}</p>
+              <p className={styles.userDetails}>Alias: {searchResults.alias}</p>
               <button onClick={() =>navigateAlias(id)} className={styles.green_btn}>Zmień pseudonim</button>
               <button onClick={() =>navigatePassword(id)} className={styles.green_btn}>Zmień hasło</button><br/>
               <p className={styles.title}>Twoje listy zakupów</p>

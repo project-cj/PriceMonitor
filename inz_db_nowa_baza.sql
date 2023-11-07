@@ -453,7 +453,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `email` varchar(45) NOT NULL,
   `alias` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `password` varchar(90) NOT NULL,
   `x_location` double NOT NULL,
   `y_location` double NOT NULL,
   `radius` double NOT NULL,

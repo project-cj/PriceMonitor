@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
 
   router.get('/:id', async (req, res) => {
     const id = req.params.id;
+    console.log(id)
     try {
       const shop = await sequelize.query(
         `WITH ShopProductPrices AS (
@@ -62,6 +63,7 @@ router.get('/', async (req, res) => {
         }
       );
       if (shop) {
+        console.log(shop);
         res.json(shop);
       } else {
         res.status(404).json({ error: 'Sklep nie został znaleziony.' });

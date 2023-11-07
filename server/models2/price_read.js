@@ -42,6 +42,14 @@ module.exports = function(sequelize, DataTypes) {
         model: 'currency',
         key: 'id'
       }
+    },
+    User_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
     }
   }, {
     tableName: 'price_read',
@@ -75,6 +83,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "Currency_id" },
+        ]
+      },
+      {
+        name: "fk_Price_Read_User1_idx",
+        using: "BTREE",
+        fields: [
+          { name: "User_id" },
         ]
       },
     ]

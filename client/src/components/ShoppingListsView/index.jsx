@@ -13,7 +13,6 @@ const ShoppingListsView = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     
-    
     axios.get('http://localhost:8080/api/shoppingLists', {
       headers: {
         Authorization: token,
@@ -70,6 +69,7 @@ const ShoppingListsView = () => {
       <div className={styles.container_2}>
         <p className={styles.title}>Lista zakupów</p>
         <select
+          
           value={selectedListId}
           onChange={(e) => setSelectedListId(e.target.value)}
         >

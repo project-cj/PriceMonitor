@@ -58,6 +58,8 @@ function initModels(sequelize) {
   street.hasMany(shop, { as: "shops", foreignKey: "Street_id"});
   product.belongsTo(subcategory, { as: "Subcategory", foreignKey: "Subcategory_id"});
   subcategory.hasMany(product, { as: "products", foreignKey: "Subcategory_id"});
+  price_read.belongsTo(user, { as: "User", foreignKey: "User_id"});
+  user.hasMany(price_read, { as: "price_reads", foreignKey: "User_id"});
   shoppinglist.belongsTo(user, { as: "User", foreignKey: "User_id"});
   user.hasMany(shoppinglist, { as: "shoppinglists", foreignKey: "User_id"});
   city.belongsTo(voivodeship, { as: "Voivodeship", foreignKey: "Voivodeship_id"});

@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: "User_alias_UNIQUE"
     },
     password: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(90),
       allowNull: false
     },
     x_location: {
@@ -39,7 +39,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     forgotten_password_link: {
       type: DataTypes.STRING(150),
-      allowNull: true
+      allowNull: true,
+      unique: "forgotten_password_link_UNIQUE"
     }
   }, {
     tableName: 'user',
@@ -75,6 +76,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "email" },
+        ]
+      },
+      {
+        name: "forgotten_password_link_UNIQUE",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "forgotten_password_link" },
         ]
       },
     ]

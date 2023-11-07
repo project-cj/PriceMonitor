@@ -46,7 +46,7 @@ const Shop = () => {
         <div className={styles.shop_container_2}>
           <p className={styles.title}>Strona sklepu</p>
           {error && <p className={styles.error}>{error}</p>}
-          {searchResults &&
+          {searchResults.length>0 &&
             <div className={styles.shop_container_2}>
                 <p>Nazwa: {searchResults[0].shop_name}</p>
                 <p>Ulica: {searchResults[0].shop_address}</p>
