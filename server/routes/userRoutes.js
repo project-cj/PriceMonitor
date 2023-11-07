@@ -7,7 +7,8 @@ const initModels = require('../models2/init-models.js');
 var models = initModels(sequelize)
 
 const {validate, validatePassword} = require("../controllers/userController.js")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+const shop_has_product = require("../models2/shop_has_product.js");
 
 router.post("/", async (req, res) => {
     try {
@@ -104,7 +105,27 @@ router.get("/userpanel/:id", async (req,res) => {
                 {
                     model: models.shoppinglist,
                     as: 'shoppinglists'
+                },
+                {
+                    model: models.price_read,
+                    as: 'price_reads',
+                    where: {
+                        User_id: id
+                    },
+                    include: [
+                        {
+                            model: models.shop_has_product,
+                            as: 'Shop_has_Product',
+                            include: [
+                                {
+                                    model: models.product,
+                                    as: 'Product'
+                                }
+                            ]
+                        }
+                    ]
                 }
+
             ]
         })
         console.log(userData)

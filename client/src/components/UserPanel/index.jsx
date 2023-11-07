@@ -83,6 +83,26 @@ const UserPanel = () => {
                 </tbody>
               </table>
               <p className={styles.title}>Twoje dodane ceny produktów</p>
+              <table className={styles.searchResults}>
+                <thead>
+                  <tr>
+                    <th>Produkt</th>
+                    <th>Cena</th>
+                    <th>Potwierdzenia</th>
+                    <th>Odrzucenia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {searchResults.price_reads.map((result, index) => (
+                    <tr key={index}>
+                      <td>{result.Shop_has_Product.Product.name}</td>
+                      <td>{result.price}</td>
+                      <td>{result.confirmation_number}</td>
+                      <td>{result.rejected_number}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           }
         </div>

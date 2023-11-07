@@ -27,7 +27,6 @@ const Shop = () => {
   };
   useEffect(() => {
     fetchProductData();
-    console.log('res',searchResults)
   }, []);
 
   const navigateProduct = (item, item2) => {

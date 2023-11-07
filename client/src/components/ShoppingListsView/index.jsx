@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from "./styles.module.css";
 
 const ShoppingListsView = () => {
+  const navigate = useNavigate();
+
   const [shoppingLists, setShoppingLists] = useState([]);
   const [products, setProducts] = useState([]);
   const [selectedListId, setSelectedListId] = useState('');
@@ -12,6 +14,7 @@ const ShoppingListsView = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    
     
     axios.get('http://localhost:8080/api/shoppingLists', {
       headers: {
@@ -64,6 +67,10 @@ const ShoppingListsView = () => {
     });
   };
 
+  const navigateCreateList = (id) => {
+    navigate('/create-list', {state: {id}})
+  }
+
  return (
     <div className={styles.container}>
       <div className={styles.container_2}>
@@ -93,7 +100,7 @@ const ShoppingListsView = () => {
           ))}
         </select>
         <button onClick={handleAddProduct} className={styles.green_btn}>Dodaj produkt</button>
-        <Link to="/create-list" className={styles.white_btn}>Utwórz nową listę</Link>
+        <button onClick={navigateCreateList} className={styles.green_btn}>Utwórz nową listę</button>
         
       </div>
     </div>
