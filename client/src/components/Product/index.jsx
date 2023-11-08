@@ -60,6 +60,7 @@ const Product = () => {
                     <th>Odrzucenia</th>
                     <th>Data początku</th>
                     <th>Data końca</th>
+                    <th>Dodał</th>
                     <th>Potwierdź</th>
                     <th>Odrzuć</th>
                   </tr>
@@ -72,6 +73,7 @@ const Product = () => {
                     <td>{result.rejected_number}</td>
                     <td>{result.date_from}</td>
                     <td>{result.date_to}</td>
+                    <td>{result.User.alias}</td>
                     <td className={styles.navigateButton}><img src={thumbUp} alt="x"></img></td>
                     <td className={styles.navigateButton}><img src={thumbDown} alt="x"></img></td>
                   </tr>

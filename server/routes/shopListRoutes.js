@@ -17,11 +17,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+
 router.post('/search', async (req, res) => {
   try {
     const city = req.body.city
 
     const shops = await models.shop.findAll({
+      where: {
+        status: 'AKTYWNY'
+      },
       include: [{
         model: models.street,
         as: 'Street',
@@ -36,6 +41,30 @@ router.post('/search', async (req, res) => {
             as: 'Voivodeship'
           }]
         }]
+      }]
+    })
+    console.log(shops)
+    res.json(shops);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania sklepów.' });
+  }
+})
+
+router.post('/searchInStreet', async (req, res) => {
+  try {
+    const street = req.body.street
+
+    const shops = await models.shop.findAll({
+      where: {
+        status: 'AKTYWNY'
+      },
+      include: [{
+        model: models.street,
+        as: 'Street',
+        where: {
+          id: street
+        }
       }]
     })
     console.log(shops)

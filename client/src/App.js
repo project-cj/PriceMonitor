@@ -19,6 +19,7 @@ import UserPanel from "./components/UserPanel"
 import ChangeAlias from "./components/ChangeAlias"
 import ChangePassword from "./components/ChangePassword"
 import ShopProposal from "./components/ShopProposal"
+import ProductAdd from "./components/ProductAdd"
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
       {user && decode.status === "USER" && <Route path="/create-list" exact element={<CreateShoppingList />} />}
       {user && decode.status === "USER" && <Route path="/userpanel" exact element={<UserPanel />} />}
       {user && decode.status === "USER" && <Route path="/shopproposal" exact element={<ShopProposal />} />}
+      {user && decode.status === "USER" && <Route path="/productadd" exact element={<ProductAdd />} />}
 
       <Route path="/userpanel" element={<Navigate replace to="/login" />} />
 

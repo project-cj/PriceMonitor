@@ -63,6 +63,12 @@ router.get('/', async (req, res) => {
               {
                 model: models.price_read,
                 as: 'price_reads',
+                include: [
+                  {
+                    model: models.user,
+                    as: 'User'
+                  }
+                ]
               }
             ]
           }
@@ -79,6 +85,26 @@ router.get('/', async (req, res) => {
     }
   });
 
-
-  
+  router.post('/add', async (req, res) => {
+    try {
+      const shop = req.body.shop;
+      const product = req.body.product;
+      const price = req.body.price;
+      const startDate = req.body.startDate;
+      const endDate = req.body.endDate;
+      const id = req.body.id;
+      console.log("id:",id, shop, product, price, startDate, endDate);
+      const shop_has_product = await models.shop_has_product.findOne({ where: { Shop_id: shop, Product_id: product }})
+      if(shop_has_product){
+        const price_read = await models.price_read.create({price: price, date_from: startDate, date_to: endDate, confirmation_number: 0, rejected_number: 0, Shop_has_Product_id: shop_has_product.id, Currency_id: 1, User_id: id});
+      } else {
+        const shop_product = await models.shop_has_product.create({Shop_id: shop, Product_id: product});
+        const price_read = await models.price_read.create({price: price, date_from: startDate, date_to: endDate, confirmation_number: 0, rejected_number: 0, Shop_has_Product_id: shop_product.id, Currency_id: 1, User_id: id});
+      }
+      res.status(200).send();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Wystąpił błąd podczas pobierania produktów.' });
+    }
+  });
 module.exports = router;
