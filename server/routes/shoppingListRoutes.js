@@ -66,6 +66,34 @@ router.post('/add-product', async (req, res) => {
   }
 });
 
+router.get('/:id/products', async (req, res) => {
+  
+  try {
+    const token = req.header('Authorization');
+    if (!token) {
+      return res.status(401).json({ error: 'Brak autoryzacji' });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
+    const selectedListId = req.params.id;
+
+    const selectedListProducts = await models.shoppinglist_has_product.findAll({
+      where: { ShoppingList_id: selectedListId },
+      include: [
+        {
+          model: models.product,
+          as: 'Product'
+        }
+      ],
+    });
+    console.log('Selected List Products: ', selectedListProducts);
+
+    res.json(selectedListProducts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Nie udało się pobrać produktów z wybranej listy zakupów' });
+  }
+});
 
 
 

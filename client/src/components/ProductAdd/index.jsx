@@ -143,7 +143,7 @@ const ProductAdd= () => {
       <div className={styles.shop_container_2}>
         <p className={styles.title}>Dodaj cenę produktu</p>
         {error && <p className={styles.error}>{error}</p>}
-        <p>Wybierz miasto</p>
+        <p className={styles.nag}>Wybierz miasto</p>
         <select className={styles.select_style} onChange={(e) => setSelectedCity(e.target.value)}>
           <option value="" selected hidden>Wybierz miasto</option>
           {cities.map((city) => (
@@ -155,7 +155,7 @@ const ProductAdd= () => {
         <button onClick={handleSearchStreet} className={styles.green_btn}>Szukaj ulic</button>
         {searchStreets.length > 0 && (
           <div>
-          <p>Wybierz ulicę</p>
+           <p className={styles.nag}>Wybierz ulicę</p>
             <select className={styles.select_style} onChange={(e) => setSelectedStreet(e.target.value)}>
               <option value="" selected hidden>Wybierz ulicę</option>
               {searchStreets.map((street) => (
@@ -169,7 +169,7 @@ const ProductAdd= () => {
         )}
         {searchShops.length > 0 && (
           <div>
-          <p>Podaj sklep (jeśli nie możesz znaleźć swojego sklepu <text className={styles.blue_text} onClick={() => navigate('/shopproposal')}> zaproponuj go!</text>)</p>
+           <p className={styles.nag}>Podaj sklep (jeśli nie możesz znaleźć swojego sklepu <text className={styles.blue_text} onClick={() => navigate('/shopproposal')}> zaproponuj go!</text>)</p>
             <select className={styles.select_style} onChange={(e) => setSelectedShop(e.target.value)}>
               <option value="" selected hidden>Wybierz sklep</option>
               {searchShops.map((shop) => (
@@ -182,7 +182,7 @@ const ProductAdd= () => {
         )}
         {searchShops.length > 0 && (
           <div>
-            <p>Wpisz nazwę produktu</p>
+             <p className={styles.nag}>Wpisz nazwę produktu</p>
             <input type="text" className={styles.select_style} onChange={(e) => handleSearchField(e.target.value)} list="words"></input>
             {foundProducts.length > 0 && (
               <datalist id="words">
@@ -192,11 +192,11 @@ const ProductAdd= () => {
               </datalist>
             )}
 
-            <p>Podaj cenę produktu</p>
+            <p className={styles.nag}>Podaj cenę produktu</p>
             <input className={styles.select_style} type="number" onChange={(e) => setPrice(e.target.value)}/>
-            <p>Podaj datę rozpoczęcia promocji</p>
+            <p className={styles.nag}>Podaj datę rozpoczęcia promocji</p>
             <input className={styles.select_style} type="date" onChange={(e) => setStartDate(e.target.value)}/>
-            <p>Podaj datę zakończenia promocji(pole nie jest wymagane)</p>
+            <p className={styles.nag}>Podaj datę zakończenia promocji(pole nie jest wymagane)</p>
             <input className={styles.select_style} type="date" onChange={(e) => setEndDate(e.target.value)}/>
             <button onClick={handleSubmit} className={styles.green_btn}>Dodaj cenę</button>
           </div>

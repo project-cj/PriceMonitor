@@ -71,6 +71,24 @@ const ShoppingListsView = () => {
     navigate('/create-list', {state: {id}})
   }
 
+  const handleShowListProducts = () => {
+    if (!selectedListId) {
+      alert('Wybierz listę zakupów.');
+      return;
+    }
+  
+    axios.get(`http://localhost:8080/api/shoppingLists/${selectedListId}/products`, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    })
+      .then((response) => {
+        setSelectedListProducts(response.data);
+      })
+      .catch((error) => {
+        console.error('Błąd podczas pobierania produktów dla wybranej listy zakupów:', error);
+      });
+  };
  return (
     <div className={styles.container}>
       <div className={styles.container_2}>
@@ -101,7 +119,17 @@ const ShoppingListsView = () => {
         </select>
         <button onClick={handleAddProduct} className={styles.green_btn}>Dodaj produkt</button>
         <button onClick={navigateCreateList} className={styles.green_btn}>Utwórz nową listę</button>
-        
+        <button onClick={handleShowListProducts} className={styles.green_btn}>Wyświetl produkty z listy</button>
+          <div>
+            <h2>Produkty na liście:</h2>
+              <ul>
+              {selectedListProducts.map((listProduct) => (
+                  <li key={listProduct.id}>
+                    {listProduct.Product.name}
+                  </li>
+              ))}
+            </ul>
+        </div>
       </div>
     </div>
   );
