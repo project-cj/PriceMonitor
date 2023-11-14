@@ -73,7 +73,7 @@ const ShopProposal = () => {
         {error && <p className={styles.error}>{error}</p>}
         <input className={styles.select_style} type="text" onChange={(e) => setShopName(e.target.value)}></input>
 
-        <MapContainer style={{height: '600px', width: '80%'}} center={[pointLat, pointLng]} zoom={13} className={styles.mapContainer}>
+        <MapContainer style={{height: '300px', width: '50%'}} center={[pointLat, pointLng]} zoom={13} className={styles.mapContainer}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

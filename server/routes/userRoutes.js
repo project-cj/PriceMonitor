@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
         const salt = await bcrypt.genSalt(Number(process.env.SALT))
         const hashPassword = await bcrypt.hash(req.body.password, salt)
 
-        await models.user.create({ ...req.body, password: hashPassword, status: "USER", x_location: 0.0, y_location: 0.0, radius: 0.0})
+        await models.user.create({ ...req.body, password: hashPassword, status: "USER", x_location: 0.0, y_location: 0.0, radius: 2.0})
         res.status(201).send({ message: "Użytkownik zarejestrowany pomyślnie" })
     } catch (error) {
         console.log(error)
@@ -55,6 +55,29 @@ router.post("/changeAlias", async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).send({ message: "Błąd serwera" })
+    }
+})
+
+router.post("/changeRadius", async (req, res) => {
+    try {
+        const radius = req.body.radius;
+        const id = req.body.id;
+        if (radius === null)
+            return res.status(400).send({message: "Nie podano nowego promienia"})
+            
+        const updateRadius = {
+            radius: radius
+        };
+        
+        await models.user.update(updateRadius, {
+            where: {
+                id: id
+            }
+        })
+        res.status(201).send({ message: "Promień został pomyślnie zmieniony" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Nie podano nowego promienia" })
     }
 })
 
@@ -100,7 +123,6 @@ router.get("/userpanel/:id", async (req,res) => {
     const id = req.params.id;
     try {
         const userData = await models.user.findByPk(id, {
-            attributes: ['email', 'alias', 'radius', 'x_location', 'y_location'],
             include: [
                 {
                     model: models.shoppinglist,
@@ -109,9 +131,7 @@ router.get("/userpanel/:id", async (req,res) => {
                 {
                     model: models.price_read,
                     as: 'price_reads',
-                    where: {
-                        User_id: id
-                    },
+                    
                     include: [
                         {
                             model: models.shop_has_product,

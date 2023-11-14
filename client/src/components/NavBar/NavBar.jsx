@@ -41,8 +41,8 @@ const NavBar = () => {
     <div className={styles.container}>
         <img className = {styles.logo} src={logo}/>
         <div className={styles.menu}>
-          <div className={styles.redirect} onClick={()=>navigate("/home")}>
-            <img className = {styles.icon} src={mainPage} alt="home"/>
+          <div className={styles.redirect} onClick={()=>navigate("/userPanel")}>
+            <img className = {styles.icon} src={mainPage} alt="userPanel"/>
             <p className={styles.text}>Strona główna</p>
           </div>
           <div className={styles.redirect} onClick={()=>navigate("/shopsearch")}>

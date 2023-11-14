@@ -16,11 +16,13 @@ const UserPanel = () => {
   const [error, setError] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [radius, setRadius] = useState(0);
   
   const fetchUserData = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/users/userpanel/${id}`);
       console.log('data',response.data);
+      setRadius(response.data.radius);
       setSearchResults(response.data);
       setLoading(false);
     } catch (error) {
@@ -45,6 +47,31 @@ const UserPanel = () => {
     navigate('/changePassword', {state: {id}})
   }
 
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
+  const handleChangeRadius = async (e) => {
+    e.preventDefault()
+    try {
+        const response = await axios.post("http://localhost:8080/api/users/changeRadius", {
+          id: id,    
+          radius: radius
+        });
+        console.log(radius)
+        handleRefresh();
+        window.alert("Pomyślnie zmieniono promień");
+        
+    } catch (error) {
+        console.error('Błąd podczas zmiany promienia: ', error.response.data.message);
+        if(error.response.data){
+          window.alert(error.response.data.message)
+        }
+    }
+  }
+
+  
+
   if(isLoading){
     return (
       <div>
@@ -61,6 +88,10 @@ const UserPanel = () => {
             <div className={styles.shop_container_2}>
               <p className={styles.userDetails}>E-mail: {searchResults.email}</p>
               <p className={styles.userDetails}>Alias: {searchResults.alias}</p>
+              <p className={styles.userDetails}>Promień wyszukiwania sklepów: {searchResults.radius} km</p>
+              <p className={styles.userDetails}>Podaj nowy promień</p>
+              <input className={styles.number_field} type="number" value={radius} onChange={(e) => setRadius(e.target.value)}/>
+              <button onClick ={handleChangeRadius} className={styles.green_btn} >Zmień promień</button><br/>
               <button onClick={() =>navigateAlias(id)} className={styles.green_btn}>Zmień pseudonim</button>
               <button onClick={() =>navigatePassword(id)} className={styles.green_btn}>Zmień hasło</button><br/>
               <p className={styles.title}>Twoje listy zakupów</p>
