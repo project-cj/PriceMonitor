@@ -73,6 +73,8 @@ router.post('/searchInStreet', async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania sklepów.' });
   }
-})
+});
+
+
 
 module.exports = router;

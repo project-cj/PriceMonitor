@@ -86,6 +86,76 @@ router.get('/', async (req, res) => {
     }
   });
 
+  router.get('/:id/:shopId', async (req, res) => {
+    const id = req.params.id;
+    const shopId = req.params.shopId;
+    console.log("ID:", id)
+    try {
+      const product = await models.product.findByPk(id, {
+        include: [
+          {
+            model: models.brand,
+            as: 'Brand'
+          },
+          {
+            model: models.subcategory,
+            as: 'Subcategory',
+            include: [
+              {
+                model: models.category,
+                as: 'Category'
+              }
+            ]
+          },
+          {
+            model: models.shop_has_product,
+            as: 'shop_has_products',
+            include: [
+              {
+                model: models.shop,
+                as: 'Shop',
+                where: {
+                  id: shopId
+                },
+                include: [
+                  {
+                    model: models.street,
+                    as: 'Street',
+                    include: [
+                      {
+                        model: models.city,
+                        as: 'City'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                model: models.price_read,
+                as: 'price_reads',
+                include: [
+                  {
+                    model: models.user,
+                    as: 'User'
+                  }
+                ],
+                order: [['date_from', 'DESC']]
+              }
+            ]
+          }
+        ]
+      });
+      if (product) {
+        res.json(product);
+      } else {
+        res.status(404).json({ error: 'Produkt nie został znaleziony.' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Wystąpił błąd podczas pobierania produktu.' });
+    }
+  });
+
   router.delete('/:id', async (req, res) => {
     const id = req.params.id;
     try {
@@ -128,4 +198,37 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Wystąpił błąd podczas pobierania produktów.' });
     }
   });
+
+
+  router.post("/confirm", async (req, res) => {
+    try {
+        const id = req.body.id;
+        const confirm = await models.price_read.findOne({where : {id: id}})
+        if (confirm) {
+          await confirm.increment('confirmation_number');
+        } else {
+          console.log('Nie znaleziono modelu.');
+        }
+        res.status(201).send({ message: "Potwierdzono cenę" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Błąd przy potwierdzaniu ceny" })
+    }
+  })
+
+  router.post("/reject", async (req, res) => {
+    try {
+        const id = req.body.id;
+        const reject = await models.price_read.findOne({where : {id: id}})
+        if (reject) {
+          await reject.increment('rejected_number');
+        } else {
+          console.log('Nie znaleziono modelu.');
+        }
+        res.status(201).send({ message: "Odrzucono cenę" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Błąd przy odrzucaniu ceny" })
+    }
+  })
 module.exports = router;

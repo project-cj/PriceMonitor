@@ -43,11 +43,11 @@ const ShoppingListsView = () => {
       productId: selectedProductId,
     })
     .then((response) => {
-      
+      alert(response.status)
       console.log('Produkt zostal dodany do listy:', response.data);
     })
     .catch((error) => {
-      
+      alert("Produkt jest już na liście");
       console.error('Bład dodania produktu do listy:', error);
     });
   };

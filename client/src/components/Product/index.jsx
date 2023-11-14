@@ -4,10 +4,15 @@ import axios from "axios";
 import styles from "./styles.module.css";
 import thumbUp from "../../images/thumb_up.png"
 import thumbDown from "../../images/thumb_down.png"
+import jwt from "jwt-decode"
+import bin from "../../images/bin.png";
 
 const Product = () => {
+  const user = localStorage.getItem("token");
+  let decode = null;
+  decode = jwt(user);
+  const User_id = decode.id;
 
-  
   const location = useLocation();
   const product = location.state?.item
   const shopId = location.state?.item2
@@ -33,8 +38,55 @@ const Product = () => {
     console.log('res',searchResults)
   }, []);
 
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
+  const handleDelete = async (resultId) => {
+    const confirmDelete = window.confirm('Czy na pewno chcesz usunąć rekord?');
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(`http://localhost:8080/api/product/${resultId}`);
+        handleRefresh();
+      } catch (error) {
+        console.log("error",error)
+        setError("Wystąpił błąd podczas pobierania danych.");
+      }
+      
+    }
+  };
+
+  const handleConfirm = async (resultId) => {
+    const confirmPrice = window.confirm('Czy na pewno chcesz potwierdzić cenę?');
+    if (confirmPrice) {
+      try {
+        const response = await axios.post(`http://localhost:8080/api/product/confirm`, {
+          id: resultId
+        });
+        handleRefresh();
+      } catch (error) {
+        console.log("error",error)
+        setError("Wystąpił błąd podczas potwierdzania ceny.");
+      }
+      
+    }
+  };
   
-  
+  const handleReject = async (resultId) => {
+    const rejectPrice = window.confirm('Czy na pewno chcesz odrzucić cenę?');
+    if (rejectPrice) {
+      try {
+        const response = await axios.post(`http://localhost:8080/api/product/reject`, {
+          id: resultId
+        });
+        handleRefresh();
+      } catch (error) {
+        console.log("error",error)
+        setError("Wystąpił błąd podczas potwierdzania ceny.");
+      }
+      
+    }
+  };
   
   if(isLoading){
     return (
@@ -66,6 +118,7 @@ const Product = () => {
                     <th>Dodał</th>
                     <th>Potwierdź</th>
                     <th>Odrzuć</th>
+                    <th>Usuń</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -77,8 +130,11 @@ const Product = () => {
                     <td>{result.date_from}</td>
                     <td>{result.date_to}</td>
                     <td>{result.User.alias}</td>
-                    <td className={styles.navigateButton}><img src={thumbUp} alt="x"></img></td>
-                    <td className={styles.navigateButton}><img src={thumbDown} alt="x"></img></td>
+                    <td className={styles.navigateButton}><img src={thumbUp} onClick={() =>handleConfirm(result.id)} alt="x"></img></td>
+                    <td className={styles.navigateButton}><img src={thumbDown} onClick={() =>handleReject(result.id)} alt="x"></img></td>
+                    {result.User.id === User_id &&
+                      <td className={styles.navigateButton}><img src={bin} onClick={() =>handleDelete(result.id)} alt="x"></img></td>
+                    }
                   </tr>
                 ))}
                 </tbody>

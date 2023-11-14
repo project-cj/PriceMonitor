@@ -65,7 +65,20 @@ const UserPanel = () => {
       }
       
     }
-    
+  };
+
+  const handleDeleteList = async (resultId) => {
+    const confirmDelete = window.confirm('Czy na pewno chcesz usunąć rekord?');
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(`http://localhost:8080/api/shoppingLists/${resultId}`);
+        handleRefresh();
+      } catch (error) {
+        console.log("error",error)
+        setError("Wystąpił błąd podczas pobierania danych.");
+      }
+      
+    }
   };
 
   const handleChangeRadius = async (e) => {
@@ -121,6 +134,7 @@ const UserPanel = () => {
                   <tr>
                     <th>Nazwa</th>
                     <th>Przybliżona cena</th>
+                    <th>Usuń listę</th>
                     <th>Przejdź do list</th>
                   </tr>
                 </thead>
@@ -129,6 +143,7 @@ const UserPanel = () => {
                     <tr key={index}>
                       <td>{result.name}</td>
                       <td>{result.price}</td>
+                      <td className={styles.navigateButton}><img src={bin} onClick={() =>handleDeleteList(result.id)} alt="x"></img></td>
                       <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateLists()} alt="x"></img></td> 
                     </tr>
                   ))}
