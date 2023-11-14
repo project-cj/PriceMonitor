@@ -4,6 +4,7 @@ import axios from "axios";
 import styles from "./styles.module.css";
 import jwt from "jwt-decode";
 import vectorRight from "../../images/vectorRight.png";
+import bin from "../../images/bin.png";
 
 const UserPanel = () => {
   const navigate = useNavigate();
@@ -51,6 +52,22 @@ const UserPanel = () => {
     window.location.reload();
   };
 
+
+  const handleDelete = async (resultId) => {
+    const confirmDelete = window.confirm('Czy na pewno chcesz usunąć rekord?');
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(`http://localhost:8080/api/product/${resultId}`);
+        handleRefresh();
+      } catch (error) {
+        console.log("error",error)
+        setError("Wystąpił błąd podczas pobierania danych.");
+      }
+      
+    }
+    
+  };
+
   const handleChangeRadius = async (e) => {
     e.preventDefault()
     try {
@@ -70,6 +87,10 @@ const UserPanel = () => {
     }
   }
 
+  const navigateProduct = (item, item2) => {
+    console.log("Pr ID:", item, "Sh ID:",item2)
+    navigate('/product', {state: {item, item2}})
+  }
   
 
   if(isLoading){
@@ -121,6 +142,8 @@ const UserPanel = () => {
                     <th>Cena</th>
                     <th>Potwierdzenia</th>
                     <th>Odrzucenia</th>
+                    <th>Usuń cenę</th>
+                    <th>Przejdź do produktu</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -130,6 +153,8 @@ const UserPanel = () => {
                       <td>{result.price}</td>
                       <td>{result.confirmation_number}</td>
                       <td>{result.rejected_number}</td>
+                      <td className={styles.navigateButton}><img src={bin} onClick={() =>handleDelete(result.id)} alt="x"></img></td>
+                      <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(result.Shop_has_Product.Product_id, result.Shop_has_Product.Shop_id)} alt="x"></img></td>  
                     </tr>
                   ))}
                 </tbody>

@@ -32,6 +32,9 @@ const Product = () => {
     fetchProductData();
     console.log('res',searchResults)
   }, []);
+
+  
+  
   
   if(isLoading){
     return (

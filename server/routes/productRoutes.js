@@ -68,7 +68,8 @@ router.get('/', async (req, res) => {
                     model: models.user,
                     as: 'User'
                   }
-                ]
+                ],
+                order: [['date_from', 'DESC']]
               }
             ]
           }
@@ -84,6 +85,26 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Wystąpił błąd podczas pobierania produktu.' });
     }
   });
+
+  router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+      const priceRead = await models.price_read.destroy({
+        where: {
+          id: id
+        }
+      });
+      if (priceRead === 1){
+        res.status(200).send();
+      } else {
+        res.status(404).json({ error: 'Odczyt nie został znaleziony.' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Wystąpił błąd podczas usuwania ceny produktu.' });
+    }
+  });
+
 
   router.post('/add', async (req, res) => {
     try {

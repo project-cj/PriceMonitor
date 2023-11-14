@@ -131,7 +131,6 @@ router.get("/userpanel/:id", async (req,res) => {
                 {
                     model: models.price_read,
                     as: 'price_reads',
-                    
                     include: [
                         {
                             model: models.shop_has_product,
@@ -143,7 +142,8 @@ router.get("/userpanel/:id", async (req,res) => {
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    order: [['date_from', 'DESC']]
                 }
 
             ]
