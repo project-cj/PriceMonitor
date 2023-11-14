@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles.module.css";
 import vectorRight from "../../images/vectorRight.png"
+import iconMarker from 'leaflet/dist/images/marker-icon.png'
+import iconRetina from 'leaflet/dist/images/marker-icon-2x.png'
+import iconShadow from 'leaflet/dist/images/marker-shadow.png'
+import L from 'leaflet';
+const icon = L.icon({ 
+  iconRetinaUrl:iconRetina, 
+  iconUrl: iconMarker, 
+  shadowUrl: iconShadow 
+});
 
 const Shop = () => {
   const navigate = useNavigate();
@@ -13,12 +23,14 @@ const Shop = () => {
   const [error, setError] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [position, setPosition] = useState(null)
 
   const fetchProductData = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/shop/${shop}`);
       console.log('data',response.data);
       setSearchResults(response.data);
+      setPosition([response.data[0].shop_x, response.data[0].shop_y])
       setLoading(false);
     } catch (error) {
       console.log(error)
@@ -50,6 +62,18 @@ const Shop = () => {
                 <p>Nazwa: {searchResults[0].shop_name}</p>
                 <p>Ulica: {searchResults[0].shop_address}</p>
                 <p>Miasto: {searchResults[0].city_name}</p>
+
+                <MapContainer style={{height: '300px', width: '50%'}} center={position} zoom={16} className={styles.mapContainer}>
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={position} icon={icon}>
+                    <Popup>
+                      {searchResults[0].shop_name}
+                    </Popup>
+                  </Marker>
+                </MapContainer>
                 <table className={styles.searchResults}>
                   <thead>
                     <tr>

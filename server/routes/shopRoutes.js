@@ -29,6 +29,8 @@ router.get('/', async (req, res) => {
             s.name AS shop_name,
             s.address AS shop_address,
             s.id AS shop_id,
+            s.x_location AS shop_x,
+            s.y_location AS shop_y,
             pr.price AS price,
             b.name AS brand_name,
             ct.name AS city_name
@@ -50,6 +52,8 @@ router.get('/', async (req, res) => {
           spp.product_name,
           spp.brand_name,
           spp.product_id,
+          spp.shop_x,
+          spp.shop_y,
           spp.city_name,
           MAX(spp.price) AS max_price,
           MIN(spp.price) AS min_price
