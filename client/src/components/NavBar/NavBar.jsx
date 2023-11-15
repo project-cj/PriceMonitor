@@ -54,16 +54,29 @@ const NavBar = () => {
             <p className={styles.text}>Produkty</p>
           </div>
           {isUserLoggedIn ? (
-            <div>
-              <div className={styles.userMenu} onClick={() => setMenuOpen(!menuOpen)}>{decodedUser.alias}<img className={styles.icon} src={userGreen}></img><img className={styles.icon} src={burger}></img></div>
-              <div className={`${styles.dropdownMenu} ${menuOpen? styles.active : styles.inactive}`}>
-                <div className={styles.dropdownComponent} onClick ={() => navigate ('/userpanel')}>Konto użytkownika<img className={styles.iconSmall} src={user}></img></div>
-                <div className={styles.dropdownComponent} onClick ={() => navigate ('/productadd')}>Dodaj cenę produktu<img className={styles.iconSmall} src={addproduct}></img></div>
-                <div className={styles.dropdownComponent} onClick ={() => navigate ('/shopproposal')}>Zaproponuj nowy sklep<img className={styles.iconSmall} src={newshop}></img></div>
-                <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglist')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
-                <div className={styles.dropdownComponent} onClick={() => handleLogout()}>Wyloguj<img className={styles.iconSmall} src={logout}></img></div>
+            decodedUser.status === "ADMIN" ? (
+              <div>
+                <div className={styles.userMenu} onClick={() => setMenuOpen(!menuOpen)}>{decodedUser.alias}<img className={styles.icon} src={userGreen}></img><img className={styles.icon} src={burger}></img></div>
+                <div className={`${styles.dropdownMenu} ${menuOpen? styles.active : styles.inactive}`}>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/userpanel')}>Konto administratora<img className={styles.iconSmall} src={user}></img></div>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate("/admin/shopproposal")}>Dodaj nowy sklep<img className={styles.iconSmall} src={addproduct}></img></div>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate("/admin/manageusers")}>Zarządzaj kontami<img className={styles.iconSmall} src={newshop}></img></div>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglist')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
+                  <div className={styles.dropdownComponent} onClick={() => handleLogout()}>Wyloguj<img className={styles.iconSmall} src={logout}></img></div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div>
+                <div className={styles.userMenu} onClick={() => setMenuOpen(!menuOpen)}>{decodedUser.alias}<img className={styles.icon} src={userGreen}></img><img className={styles.icon} src={burger}></img></div>
+                <div className={`${styles.dropdownMenu} ${menuOpen? styles.active : styles.inactive}`}>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/userpanel')}>Konto użytkownika<img className={styles.iconSmall} src={user}></img></div>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/productadd')}>Dodaj cenę produktu<img className={styles.iconSmall} src={addproduct}></img></div>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/shopproposal')}>Zaproponuj nowy sklep<img className={styles.iconSmall} src={newshop}></img></div>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglist')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
+                  <div className={styles.dropdownComponent} onClick={() => handleLogout()}>Wyloguj<img className={styles.iconSmall} src={logout}></img></div>
+                </div>
+              </div>
+            )
           ) : (
             <button className = {styles.login_button} onClick={() => navigate('/login')}>Zaloguj się</button>
           )}
