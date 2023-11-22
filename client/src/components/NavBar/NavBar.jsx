@@ -61,7 +61,7 @@ const NavBar = () => {
                   <div className={styles.dropdownComponent} onClick ={() => navigate ('/userpanel')}>Konto administratora<img className={styles.iconSmall} src={user}></img></div>
                   <div className={styles.dropdownComponent} onClick ={() => navigate("/admin/shopproposal")}>Dodaj nowy sklep<img className={styles.iconSmall} src={addproduct}></img></div>
                   <div className={styles.dropdownComponent} onClick ={() => navigate("/admin/manageusers")}>Zarządzaj kontami<img className={styles.iconSmall} src={newshop}></img></div>
-                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglist')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglists')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
                   <div className={styles.dropdownComponent} onClick={() => handleLogout()}>Wyloguj<img className={styles.iconSmall} src={logout}></img></div>
                 </div>
               </div>
@@ -72,7 +72,7 @@ const NavBar = () => {
                   <div className={styles.dropdownComponent} onClick ={() => navigate ('/userpanel')}>Konto użytkownika<img className={styles.iconSmall} src={user}></img></div>
                   <div className={styles.dropdownComponent} onClick ={() => navigate ('/productadd')}>Dodaj cenę produktu<img className={styles.iconSmall} src={addproduct}></img></div>
                   <div className={styles.dropdownComponent} onClick ={() => navigate ('/shopproposal')}>Zaproponuj nowy sklep<img className={styles.iconSmall} src={newshop}></img></div>
-                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglist')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglists')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
                   <div className={styles.dropdownComponent} onClick={() => handleLogout()}>Wyloguj<img className={styles.iconSmall} src={logout}></img></div>
                 </div>
               </div>

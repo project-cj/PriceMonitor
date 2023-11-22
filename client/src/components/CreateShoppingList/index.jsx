@@ -16,11 +16,13 @@ const CreateShoppingList = () => {
           });
           
       setName('');
-      navigate('/shoppinglist')
+      navigate('/shoppinglists')
     } catch (error) {
       console.error('Błąd podczas tworzenia listy zakupów:', error);
     }
   };
+
+  
 
   
 

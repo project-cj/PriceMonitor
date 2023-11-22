@@ -156,8 +156,8 @@ const ProductList = () => {
                 <tr key={index}>
                   <td>{result.shop_name}</td>
                   <td>{result.shop_address}</td>
-                  <td>{result.min_price}</td>
-                  <td>{result.max_price}</td>
+                  <td>{result.min_price.toFixed(2)}</td>
+                  <td>{result.max_price.toFixed(2)}</td>
                   <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateProduct(selectedProduct, result.shop_id)} alt="x"></img></td>  
                 </tr>
               ))}

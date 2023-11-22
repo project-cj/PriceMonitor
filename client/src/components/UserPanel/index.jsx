@@ -36,10 +36,9 @@ const UserPanel = () => {
     console.log('res',searchResults)
   }, []);
 
-  const navigateLists = () => {
-    navigate('/shoppinglist')
+  const navigateShoppingList = (id) => {
+    navigate('/shoppinglist', {state: {id}})
   }
-
   const navigateAlias = (id) => {
     navigate('/changeAlias', {state: {id}})
   }
@@ -90,8 +89,7 @@ const UserPanel = () => {
         });
         console.log(radius)
         handleRefresh();
-        window.alert("Pomyślnie zmieniono promień");
-        
+        window.alert("Pomyślnie zmieniono promień");  
     } catch (error) {
         console.error('Błąd podczas zmiany promienia: ', error.response.data.message);
         if(error.response.data){
@@ -135,7 +133,7 @@ const UserPanel = () => {
                     <th>Nazwa</th>
                     <th>Przybliżona cena</th>
                     <th>Usuń listę</th>
-                    <th>Przejdź do list</th>
+                    <th>Przejdź do listy</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -144,7 +142,7 @@ const UserPanel = () => {
                       <td>{result.name}</td>
                       <td>{result.price}</td>
                       <td className={styles.navigateButton}><img src={bin} onClick={() =>handleDeleteList(result.id)} alt="x"></img></td>
-                      <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateLists()} alt="x"></img></td> 
+                      <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateShoppingList(result.id)} alt="x"></img></td> 
                     </tr>
                   ))}
                 </tbody>

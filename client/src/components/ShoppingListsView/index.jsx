@@ -2,133 +2,107 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from "./styles.module.css";
+import jwt from "jwt-decode"
+import vectorRight from "../../images/vectorRight.png"
+import bin from "../../images/bin.png";
 
 const ShoppingListsView = () => {
+  const user = localStorage.getItem("token");
+  let decode = null;
+  decode = jwt(user);
+  const User_id = decode.id;
+
   const navigate = useNavigate();
 
   const [shoppingLists, setShoppingLists] = useState([]);
   const [products, setProducts] = useState([]);
-  const [selectedListId, setSelectedListId] = useState('');
-  const [selectedProductId, setSelectedProductId] = useState('');
-  const [selectedListProducts, setSelectedListProducts] = useState([]);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    
-    
-    axios.get('http://localhost:8080/api/shoppingLists', {
-      headers: {
-        Authorization: token,
-      },
-    })
-    .then((response) => {
-      setShoppingLists(response.data);
-    });
-
-   
-    axios.get('http://localhost:8080/api/products') 
-    .then((response) => {
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/product/`);
+      console.log('products',response.data);
       setProducts(response.data);
-    });
+      setLoading(false);
+    } catch (error) {
+      console.log(error)
+      setError("Wystąpił błąd podczas pobierania danych.");
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+    console.log('res',products)
   }, []);
 
-  const handleAddProduct = () => {
-    if (!selectedListId || !selectedProductId) {
-      alert('Wybierz listę zakupów i produkt.');
-      return;
+  const fetchLists = async () => {
+    try {
+      console.log("user id",User_id)
+      const response = await axios.get(`http://localhost:8080/api/shoppingLists/${User_id}`);
+      console.log('lists',response.data);
+      setShoppingLists(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error)
+      setError("Wystąpił błąd podczas pobierania danych.");
     }
-
-    axios.post('http://localhost:8080/api/shoppingLists/add-product', {
-      shoppingListId: selectedListId,
-      productId: selectedProductId,
-    })
-    .then((response) => {
-      alert(response.status)
-      console.log('Produkt zostal dodany do listy:', response.data);
-    })
-    .catch((error) => {
-      alert("Produkt jest już na liście");
-      console.error('Bład dodania produktu do listy:', error);
-    });
   };
-
-  const handleSelectList = (listId) => {
-    
-    axios.get(`http://localhost:8080/api/shoppingLists/shopping-list/${listId}`, {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    })
-    .then((response) => {
-      setSelectedListProducts(response.data.products);
-    })
-    .catch((error) => {
-      console.error('Błąd podczas pobierania produktów dla wybranej listy zakupów:', error);
-    });
-  };
+  useEffect(() => {
+    fetchLists();
+    console.log('res',shoppingLists)
+  }, []);
 
   const navigateCreateList = (id) => {
     navigate('/create-list', {state: {id}})
   }
 
-  const handleShowListProducts = () => {
-    if (!selectedListId) {
-      alert('Wybierz listę zakupów.');
-      return;
-    }
-  
-    axios.get(`http://localhost:8080/api/shoppingLists/${selectedListId}/products`, {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
-    })
-      .then((response) => {
-        setSelectedListProducts(response.data);
-      })
-      .catch((error) => {
-        console.error('Błąd podczas pobierania produktów dla wybranej listy zakupów:', error);
-      });
+  const navigateShoppingList = (id) => {
+    navigate('/shoppinglist', {state: {id}})
+  }
+
+  const handleRefresh = () => {
+    window.location.reload();
   };
+
+  const handleDeleteList = async (resultId) => {
+    const confirmDelete = window.confirm('Czy na pewno chcesz usunąć rekord?');
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(`http://localhost:8080/api/shoppingLists/${resultId}`);
+        handleRefresh();
+      } catch (error) {
+        console.log("error",error)
+        setError("Wystąpił błąd podczas pobierania danych.");
+      }
+      
+    }
+  };
+  
+
  return (
     <div className={styles.container}>
       <div className={styles.container_2}>
-        <p className={styles.title}>Lista zakupów</p>
-        <select
-          
-          value={selectedListId}
-          onChange={(e) => setSelectedListId(e.target.value)}
-        >
-          <option value="">Wybierz listę zakupów</option>
-          {shoppingLists.map((list) => (
-            <option key={list.id} value={list.id}>
-              {list.name}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={selectedProductId}
-          onChange={(e) => setSelectedProductId(e.target.value)}
-        >
-          <option value="">Wybierz produkt</option>
-          {products.map((product) => (
-            <option key={product.id} value={product.id}>
-              {product.name}
-            </option>
-          ))}
-        </select>
-        <button onClick={handleAddProduct} className={styles.green_btn}>Dodaj produkt</button>
+        <p className={styles.title}>Listy zakupów</p>
         <button onClick={navigateCreateList} className={styles.green_btn}>Utwórz nową listę</button>
-        <button onClick={handleShowListProducts} className={styles.green_btn}>Wyświetl produkty z listy</button>
           <div>
-            <h2>Produkty na liście:</h2>
-              <ul>
-              {selectedListProducts.map((listProduct) => (
-                  <li key={listProduct.id}>
-                    {listProduct.Product.name}
-                  </li>
-              ))}
-            </ul>
+          <table className={styles.searchResults}>
+                <thead>
+                  <tr>
+                    <th>Nazwa</th>
+                    <th>Usuń listę</th>
+                    <th>Przejdź do listy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {shoppingLists.map((result, index) => (
+                  <tr key={index}>
+                    <td>{result.name}</td>
+                    <td className={styles.navigateButton}><img src={bin} onClick={() =>handleDeleteList(result.id)} alt="x"></img></td>
+                    <td className={styles.navigateButton}><img src={vectorRight} onClick={() =>navigateShoppingList(result.id)} alt="x"></img></td> 
+                  </tr>
+                ))}
+                </tbody>
+              </table>
         </div>
       </div>
     </div>

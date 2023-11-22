@@ -15,6 +15,7 @@ import Product from "./components/Product"
 import PasswordResetChange from "./components/PasswordResetChange"
 import ShoppingListsView from "./components/ShoppingListsView"
 import CreateShoppingList from "./components/CreateShoppingList"
+import ShoppingList from "./components/ShoppingList"
 import UserPanel from "./components/UserPanel"
 import ChangeAlias from "./components/ChangeAlias"
 import ChangePassword from "./components/ChangePassword"
@@ -44,8 +45,9 @@ function App() {
 
       {user && (decode.status === "USER" || decode.status === "ADMIN") && <Route path="/shop" exact element={<Shop />} />}
       {user && (decode.status === "USER" || decode.status === "ADMIN") && <Route path="/product" exact element={<Product />} />}
-      {user && (decode.status === "USER" || decode.status === "ADMIN") && <Route path="/shoppinglist" exact element={<ShoppingListsView />} />}
+      {user && (decode.status === "USER" || decode.status === "ADMIN") && <Route path="/shoppinglists" exact element={<ShoppingListsView />} />}
       {user && (decode.status === "USER" || decode.status === "ADMIN") && <Route path="/create-list" exact element={<CreateShoppingList />} />}
+      {user && (decode.status === "USER" || decode.status === "ADMIN") && <Route path="/shoppinglist" exact element={<ShoppingList />} />}
       {user && (decode.status === "USER" || decode.status === "ADMIN") && <Route path="/userpanel" exact element={<UserPanel />} />}
       {user && (decode.status === "USER" || decode.status === "ADMIN") && <Route path="/shopproposal" exact element={<ShopProposal />} />}
       {user && (decode.status === "USER" || decode.status === "ADMIN") && <Route path="/productadd" exact element={<ProductAdd />} />}

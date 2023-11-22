@@ -16,6 +16,17 @@ router.get('/', async (req, res) => {
     }
   });
 
+  router.get('/shop/:id', async (req, res) => {
+    const id = req.params.id;
+    try {      
+      const shop = await models.shop.findByPk(id);
+      res.json(shop);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Wystąpił błąd podczas pobierania sklepu.' });
+    }
+  });
+
   router.get('/:id', async (req, res) => {
     const id = req.params.id;
     console.log(id)
