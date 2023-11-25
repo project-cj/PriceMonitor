@@ -149,7 +149,7 @@ const [firstShop, ...restShops] = shopData;
       <div className={styles.container_2}>
         <p className={styles.title}>Lista zakupów</p>
           <div>
-          <p>Dodaj produkt do listy</p>
+          <p className={styles.nag}>Dodaj produkt do listy</p>
           <select value={selectedProductId} onChange={(e) => setSelectedProductId(e.target.value)}>
             <option value="">Wybierz produkt</option>
             {products.map((product) => (

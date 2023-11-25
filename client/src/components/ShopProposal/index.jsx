@@ -71,9 +71,9 @@ const ShopProposal = () => {
       <div className={styles.shop_container_2}>
         <p className={styles.title}>Zaproponuj nowy sklep</p>
         {error && <p className={styles.error}>{error}</p>}
-        <p>Podaj nazwę sklepu</p>
+        <p className={styles.nag}>Podaj nazwę sklepu</p>
         <input className={styles.select_style} type="text" placeholder="Nazwa sklepu" onChange={(e) => setShopName(e.target.value)}></input>
-        <p>Wybierz lokalizację sklepu</p>
+        <p className={styles.nag}>Wybierz lokalizację sklepu</p>
         <MapContainer style={{height: '300px', width: '50%'}} center={[pointLat, pointLng]} zoom={13} className={styles.mapContainer}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
