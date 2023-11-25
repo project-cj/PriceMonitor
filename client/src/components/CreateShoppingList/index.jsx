@@ -9,6 +9,11 @@ const CreateShoppingList = () => {
 
   const handleCreateList = async () => {
     try {
+
+      if (!name.trim()) {
+        window.alert("Nazwa listy nie może być pusta.");
+        return;
+      }
         const token = localStorage.getItem("token");
         const response = await axios.post("http://localhost:8080/api/shoppingLists/create-list", {
             name: name,

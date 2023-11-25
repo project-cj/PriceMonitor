@@ -57,6 +57,7 @@ const ShopSearch = () => {
     } else {
       setSearchResults([]);
       console.log('not found anything!')
+      window.alert("Wybierz miasto przed wyszukiwaniem.");
     }
   };
 

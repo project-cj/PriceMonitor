@@ -61,7 +61,7 @@ const ShopProposal = () => {
         if(response.status == 200)
           window.alert("Sklep zaproponowany!")
       } catch (error) {
-        setError("Błąd wyszukiwania")
+        window.alert("Podaj nazwę sklepu aby dodać propozycję")
       }
   };
 

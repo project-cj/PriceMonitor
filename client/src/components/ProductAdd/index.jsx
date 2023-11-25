@@ -65,6 +65,7 @@ const ProductAdd= () => {
     } else {
       setSearchStreets([]);
       console.log('not found anything!')
+      window.alert("Wybierz miasto przed wyszukiwaniem ulic.");
     }
   };
 
@@ -85,6 +86,7 @@ const ProductAdd= () => {
     } else {
       setSearchShops([]);
       console.log('not found anything!')
+      window.alert("Wybierz ulicę przed wyszukiwaniem sklepów.")
     }
   };
 
