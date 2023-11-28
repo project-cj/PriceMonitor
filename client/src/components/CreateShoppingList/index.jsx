@@ -21,6 +21,7 @@ const CreateShoppingList = () => {
           });
           
       setName('');
+      window.alert("Została utworzona lista zakupów");
       navigate('/shoppinglists')
     } catch (error) {
       console.error('Błąd podczas tworzenia listy zakupów:', error);

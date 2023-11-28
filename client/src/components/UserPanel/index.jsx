@@ -24,6 +24,7 @@ const UserPanel = () => {
   decode = jwt(user);
   const id = decode.id;
   const status = decode.status;
+  
 
   const [error, setError] = useState(null);
   const [searchResults, setSearchResults] = useState([]);

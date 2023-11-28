@@ -67,6 +67,7 @@ const AdminShopProposalEdit = () => {
         } else {
           setSearchStreets([]);
           console.log('not found anything!')
+          window.alert("Wybierz miasto przed zatwierdzeniem propozycji.");
         }
       };
      const handleSubmit = () => {
@@ -97,7 +98,6 @@ const AdminShopProposalEdit = () => {
             <input className={styles.select_style} type="text" onChange={(e) => setName(e.target.value)} value={name}></input>
             <p className={styles.nag}>Adres:</p>
             <input className={styles.select_style} type="text" onChange={(e) => setAddress(e.target.value)} value={address}></input>
-            <p>Możesz zmienić lokalizację naciskając nowe miejsce na mapie i potwierdzic przyciskiem 'Zmień lokalizację'</p>
             <MapContainer style={{height: '300px', width: '50%'}} center={position} zoom={16} className={styles.mapContainer}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
