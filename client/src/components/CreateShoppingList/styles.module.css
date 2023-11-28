@@ -12,6 +12,7 @@
 	color: white;
 	margin-top: 25px;
 }
+
 .buttons {
     display: flex;
     flex-direction: column;
@@ -40,6 +41,20 @@
     cursor: pointer;
     margin: 20px;
     border: 2px solid white;
+}
+.signup_title{
+	font-size: 200%;
+	font-weight: bold;
+	text-decoration:solid;
+	margin-bottom: 5px;
+}
+.signup_title_container{
+	border-bottom: 5px solid white;
+	border-radius: 2px;
+	margin-left: 30px;
+	margin-bottom: 30px;
+	margin-top: 40px;
+	width: 48%;
 }
 .title {
     display: flex;
@@ -86,4 +101,8 @@ input {
     width: 60%;
     padding: 10px; 
     margin: 10px 0; 
+}
+.nag {
+	margin-left: 20px;
+	margin-top: 0px;
 }

@@ -22,6 +22,7 @@ router.post("/", async (req, res) => {
         const token = jwt.sign({ id: user.id, status: user.status, email: user.email, alias: user.alias}, process.env.JWTPRIVATEKEY, {
             expiresIn: "5h",
         })
+
         res.status(200).send({ data: token, message: "Zalogowano" })
         console.log('User logged in')
     } catch (error) {

@@ -82,6 +82,31 @@ router.post("/changeRadius", async (req, res) => {
     }
 })
 
+router.post("/changeLocation", async (req, res) => {
+    try {
+        const x_loc = req.body.x_loc;
+        const y_loc = req.body.y_loc;
+        const id = req.body.id;
+        if (x_loc === null || y_loc === null)
+            return res.status(400).send({message: "Nie podano nowej lokalizacji"})
+            
+        const updateLocation = {
+            x_location: x_loc,
+            y_location: y_loc
+        };
+        
+        await models.user.update(updateLocation, {
+            where: {
+                id: id
+            }
+        })
+        res.status(201).send({ message: "Lokalizacja została pomyślnie zmieniona" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Nie podano nowej lokalizacji" })
+    }
+})
+
 
 router.post("/changePassword", async (req, res) => {
     try {

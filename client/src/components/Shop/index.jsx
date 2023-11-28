@@ -59,9 +59,9 @@ const Shop = () => {
           {error && <p className={styles.error}>{error}</p>}
           {searchResults.length>0 &&
             <div className={styles.shop_container_2}>
-                <p>Nazwa: {searchResults[0].shop_name}</p>
-                <p>Ulica: {searchResults[0].shop_address}</p>
-                <p>Miasto: {searchResults[0].city_name}</p>
+                <p className={styles.nag}>Nazwa: {searchResults[0].shop_name}</p>
+                <p className={styles.nag}>Ulica: {searchResults[0].shop_address}</p>
+                <p className={styles.nag}>Miasto: {searchResults[0].city_name}</p>
 
                 <MapContainer style={{height: '300px', width: '50%'}} center={position} zoom={16} className={styles.mapContainer}>
                   <TileLayer

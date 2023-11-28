@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import axios from "axios";
 import styles from "./styles.module.css";
 import jwt from "jwt-decode";
 import vectorRight from "../../images/vectorRight.png";
 import bin from "../../images/bin.png";
+import iconMarker from 'leaflet/dist/images/marker-icon.png'
+import iconRetina from 'leaflet/dist/images/marker-icon-2x.png'
+import iconShadow from 'leaflet/dist/images/marker-shadow.png'
+import L from 'leaflet';
+const icon = L.icon({ 
+  iconRetinaUrl:iconRetina, 
+  iconUrl: iconMarker, 
+  shadowUrl: iconShadow 
+});
 
 const UserPanel = () => {
   const navigate = useNavigate();
@@ -18,6 +28,16 @@ const UserPanel = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [radius, setRadius] = useState(0);
+  const [position, setPosition] = useState(null)
+
+  function LocationMarker() {
+    const map = useMapEvents({
+      click(e) {
+        setPosition(e.latlng)
+        map.flyTo(e.latlng, map.getZoom())
+      },
+    })
+  }
   
   const fetchUserData = async () => {
     try {
@@ -25,6 +45,7 @@ const UserPanel = () => {
       console.log('data',response.data);
       setRadius(response.data.radius);
       setSearchResults(response.data);
+      setPosition([response.data.x_location, response.data.y_location])
       setLoading(false);
     } catch (error) {
       console.log(error)
@@ -98,6 +119,25 @@ const UserPanel = () => {
     }
   }
 
+  const handleChangeLocation = async (e) => {
+    e.preventDefault()
+    try {
+        const response = await axios.post("http://localhost:8080/api/users/changeLocation", {
+          id: id,
+          x_loc: position.lat,
+          y_loc: position.lng
+        });
+        console.log(radius)
+        handleRefresh();
+        window.alert("Pomyślnie zmieniono lokalizację");  
+    } catch (error) {
+        console.error('Błąd podczas zmiany lokalizacji: ', error.response.data.message);
+        if(error.response.data){
+          window.alert(error.response.data.message)
+        }
+    }
+  }
+
   const navigateProduct = (item, item2) => {
     console.log("Pr ID:", item, "Sh ID:",item2)
     navigate('/product', {state: {item, item2}})
@@ -119,13 +159,28 @@ const UserPanel = () => {
           {searchResults && 
             <div className={styles.shop_container_2}>
               <p className={styles.userDetails}>E-mail: {searchResults.email}</p>
-              <p className={styles.userDetails}>Alias: {searchResults.alias}</p>
+              <p className={styles.userDetails}>Pseudonim: {searchResults.alias}</p>
               <p className={styles.userDetails}>Promień wyszukiwania sklepów: {searchResults.radius} km</p>
               <p className={styles.userDetails}>Podaj nowy promień</p>
               <input className={styles.number_field} type="number" value={radius} onChange={(e) => setRadius(e.target.value)}/>
               <button onClick ={handleChangeRadius} className={styles.green_btn} >Zmień promień</button><br/>
               <button onClick={() =>navigateAlias(id)} className={styles.green_btn}>Zmień pseudonim</button>
               <button onClick={() =>navigatePassword(id)} className={styles.green_btn}>Zmień hasło</button><br/>
+              <p className={styles.title}>Twoja lokalizacja</p>
+              <p>Możesz zmienić lokalizację naciskając nowe miejsce na mapie i potwierdzic przyciskiem 'Zmień lokalizację'</p>
+              <MapContainer style={{height: '300px', width: '50%'}} center={position} zoom={16} className={styles.mapContainer}>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={position} icon={icon}>
+                  <Popup>
+                    {searchResults.alias}
+                  </Popup>
+                </Marker>
+                <LocationMarker />
+              </MapContainer>
+              <button onClick ={handleChangeLocation} className={styles.green_btn} >Zmień lokalizację</button><br/>
               <p className={styles.title}>Twoje listy zakupów</p>
               <table className={styles.searchResults}>
                 <thead>

@@ -59,9 +59,8 @@ const NavBar = () => {
                 <div className={styles.userMenu} onClick={() => setMenuOpen(!menuOpen)}>{decodedUser.alias}<img className={styles.icon} src={userGreen}></img><img className={styles.icon} src={burger}></img></div>
                 <div className={`${styles.dropdownMenu} ${menuOpen? styles.active : styles.inactive}`}>
                   <div className={styles.dropdownComponent} onClick ={() => navigate ('/userpanel')}>Konto administratora<img className={styles.iconSmall} src={user}></img></div>
-                  <div className={styles.dropdownComponent} onClick ={() => navigate("/admin/shopproposal")}>Dodaj nowy sklep<img className={styles.iconSmall} src={addproduct}></img></div>
+                  <div className={styles.dropdownComponent} onClick ={() => navigate("/admin/shopproposal")}>Zatwierdź sklepy<img className={styles.iconSmall} src={addproduct}></img></div>
                   <div className={styles.dropdownComponent} onClick ={() => navigate("/admin/manageusers")}>Zarządzaj kontami<img className={styles.iconSmall} src={newshop}></img></div>
-                  <div className={styles.dropdownComponent} onClick ={() => navigate ('/shoppinglists')}>Listy zakupów<img className={styles.iconSmall} src={shoppinglist}></img></div>
                   <div className={styles.dropdownComponent} onClick={() => handleLogout()}>Wyloguj<img className={styles.iconSmall} src={logout}></img></div>
                 </div>
               </div>

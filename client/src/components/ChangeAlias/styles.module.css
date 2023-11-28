@@ -12,6 +12,7 @@
 	min-height: 90vh;
 	color: white;
 	margin-top: 25px;
+	margin-bottom: 5px;
 }
 .blue_text{
 	color: #014389;
@@ -35,7 +36,7 @@
 	border-bottom: 5px solid white;
 	border-radius: 2px;
 	margin-left: 30px;
-	margin-bottom: 5%;
+	margin-bottom: 30px;
 	margin-top: 40px;
 	width: 48%;
 }
@@ -128,4 +129,10 @@
 
 input{
 	margin-left: 20px;
+}
+
+
+.nag {
+	margin-left: 20px;
+	margin-top: 0px;
 }

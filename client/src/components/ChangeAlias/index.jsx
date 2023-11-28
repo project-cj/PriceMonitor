@@ -34,6 +34,7 @@ const ChangeAlias = () => {
                 <div className={styles.signup_title_container}>
                     <p className={styles.signup_title}>Zmień pseudonim</p>
                 </div>
+                <p className={styles.nag}>Wpisz nowy pseudonim</p>
                 <input type="text" placeholder="Nowy pseudonim" onChange={(e) => setAlias(e.target.value)}/>
                 {error && <div className={styles.error_msg}>{error}</div>}
                 <br/>

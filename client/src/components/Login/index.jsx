@@ -6,11 +6,12 @@ import cart from "../../images/cart.png"
 
 const Login = () => {
     const navigate = useNavigate();
-    const [data, setData] = useState({ email: "", password: "" })
+    const [data, setData] = useState({ email: "", password: ""})
     const [error, setError] = useState("")
     const handleChange = ({ currentTarget: input }) => {
         setData({ ...data, [input.name]: input.value })
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {

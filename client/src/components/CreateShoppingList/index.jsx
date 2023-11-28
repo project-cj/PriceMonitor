@@ -34,15 +34,13 @@ const CreateShoppingList = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container_2}>
-      <p className={styles.title}>Utwórz nową listę zakupów</p>
-      <input
-        type="text"
-        placeholder="Nazwa listy"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <button onClick ={handleCreateList} className={styles.green_btn} >Utwórz listę</button>
-    </div>
+        <div className={styles.signup_title_container}>
+          <p className={styles.signup_title}>Stwórz nową listę</p>
+        </div>
+        <p className={styles.nag}>Wpisz nazwę listy</p>
+        <input type="text" placeholder="Nazwa listy" value={name} onChange={(e) => setName(e.target.value)}/>
+        <button onClick ={handleCreateList} className={styles.green_btn} >Utwórz listę</button>
+      </div>
     </div>
   );
 };
