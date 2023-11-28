@@ -85,6 +85,17 @@ const ProductList = () => {
     }
   }
   const handleSearch = async () => {
+    if (!selectedCity) {
+      setSearchResults([]);
+      window.alert("Wybierz miasto przed wyszukiwaniem.");
+      return;
+    }
+  
+    if (!selectedProduct) {
+      setSearchResults([]);
+      window.alert("Wpisz nazwę produktu przed wyszukiwaniem.");
+      return;
+    }
     if (selectedCity && selectedProduct) {
       try {
         const response = await axios.post("http://localhost:8080/api/products/search", {
@@ -101,7 +112,6 @@ const ProductList = () => {
     } else {
       setSearchResults([]);
       console.log('not found anything!')
-      window.alert("Wybierz miasto przed wyszukiwaniem.");
     }
   };
 

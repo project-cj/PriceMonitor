@@ -20,7 +20,7 @@ const Login = () => {
             window.location = "/userPanel"
         } catch (error) {
             if (error.response &&error.response.status >= 400 &&error.response.status <= 500) {
-                setError(error.response.data.message)
+                window.alert(error.response.data.message);
             }
         }
     }

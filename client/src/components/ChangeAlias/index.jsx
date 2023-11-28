@@ -21,9 +21,9 @@ const ChangeAlias = () => {
             window.alert("Użytkownik pomyślnie zmienił pseudonim")
             navigate("/userpanel")
         } catch (error) {
-            console.error('Błąd podczas zmiany pseudonimu: ', error.response.data.message);
+            console.error(error.response.data.message);
             if(error.response.data){
-                setError(error.response.data.message)
+                window.alert(error.response.data.message);
             }
         }
     }

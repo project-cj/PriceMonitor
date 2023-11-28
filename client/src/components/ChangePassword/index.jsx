@@ -23,7 +23,7 @@ const ChangePassword = () => {
         } catch (error) {
             console.error('Błąd podczas zmiany hasła: ', error.response.data.message);
             if(error.response.data){
-                setError(error.response.data.message)
+                window.alert(`${error.response.data.message}`);
             }
         }
     }
