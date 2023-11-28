@@ -42,6 +42,34 @@ router.post('/saveproposal', async (req, res) => {
       res.status(500).json({ error: 'Wystąpił błąd podczas pobierania propozycji sklepów.' });
     }
   });
-
+router.get('/getusers', async (req, res) => {
+  try {
+    const users = await models.user.findAll({
+      where: {
+        status: "USER"
+      }
+    })
+    console.log(users)
+    res.status(200).send(users)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Wystąpił błąd podczas pobierania użytkowników.' });
+  }
+})
+router.post('/deleteuser', async (req, res) => {
+  try {
+    console.log("delete user request")
+    const user = await models.user.findOne({
+      where: {
+        id: req.body.userID
+      }
+    })
+    await user.destroy()
+    res.status(200).send()
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Wystąpił błąd podczas usuwania użytkownika.' });
+  }
+})
 
 module.exports = router;
