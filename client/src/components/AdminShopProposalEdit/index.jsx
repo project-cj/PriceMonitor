@@ -3,6 +3,17 @@ import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import vectorRight from "../../images/vectorRight.png"
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import iconMarker from 'leaflet/dist/images/marker-icon.png'
+import iconRetina from 'leaflet/dist/images/marker-icon-2x.png'
+import iconShadow from 'leaflet/dist/images/marker-shadow.png'
+import L from 'leaflet';
+const icon = L.icon({ 
+  iconRetinaUrl:iconRetina, 
+  iconUrl: iconMarker, 
+  shadowUrl: iconShadow 
+});
+
 const AdminShopProposalEdit = () => {
 
     const navigate = useNavigate();
@@ -12,12 +23,21 @@ const AdminShopProposalEdit = () => {
     const [selectedCity, setSelectedCity] = useState("");
     const [searchStreets, setSearchStreets] = useState([]);
     const [selectedStreet, setSelectedStreet] = useState(null);
+    
 
     const proposal = location.state?.proposal;
     const [name, setName] = useState(proposal.name);
     const [address, setAddress] = useState(proposal.address);
-    const [xLocation, setXLocation] = useState(proposal.x_location);
-    const [yLocation, setYLocation] = useState(proposal.y_location);
+    const [position, setPosition] = useState([proposal.x_location,proposal.y_location])
+
+    function LocationMarker() {
+      const map = useMapEvents({
+        click(e) {
+          setPosition(e.latlng)
+          map.flyTo(e.latlng, map.getZoom())
+        },
+      })
+    }
 
     useEffect(() => {
         const fetchCities = async () => {
@@ -55,8 +75,8 @@ const AdminShopProposalEdit = () => {
             id: proposal.id,
             name: name, 
             address: address, 
-            x_location: xLocation, 
-            y_location: yLocation,
+            x_location: position.lat, 
+            y_location: position.lng,
             street_id: selectedStreet,
           })
           window.alert("Propozycja zatwierdzona pomyślnie")
@@ -77,10 +97,19 @@ const AdminShopProposalEdit = () => {
             <input className={styles.select_style} type="text" onChange={(e) => setName(e.target.value)} value={name}></input>
             <p className={styles.nag}>Adres:</p>
             <input className={styles.select_style} type="text" onChange={(e) => setAddress(e.target.value)} value={address}></input>
-            <p className={styles.nag}>Pozycja X:</p>
-            <input className={styles.select_style} type="text" onChange={(e) => setXLocation(e.target.value)} value={xLocation}></input>
-            <p className={styles.nag}>Pozycja Y:</p>
-            <input className={styles.select_style} type="text" onChange={(e) => setYLocation(e.target.value)} value={yLocation}></input>
+            <p>Możesz zmienić lokalizację naciskając nowe miejsce na mapie i potwierdzic przyciskiem 'Zmień lokalizację'</p>
+            <MapContainer style={{height: '300px', width: '50%'}} center={position} zoom={16} className={styles.mapContainer}>
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={position} icon={icon}>
+                <Popup>
+                  Pozycja sklepu
+                </Popup>
+              </Marker>
+              <LocationMarker />
+            </MapContainer>
             <p className={styles.nag}>Wybierz miasto</p>
             <select className={styles.select_style} onChange={(e) => setSelectedCity(e.target.value)}>
                 <option value="" selected hidden>Wybierz miasto</option>
@@ -107,7 +136,6 @@ const AdminShopProposalEdit = () => {
             {selectedStreet && (
               <button className={styles.green_btn} onClick={() => handleSubmit()}>Zatwierdź propozycję</button>
             )}
-            <button onClick={() => console.log(proposal, selectedStreet)}>Log</button>
         </div>
     </div>
     )

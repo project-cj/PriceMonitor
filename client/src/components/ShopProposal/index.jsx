@@ -58,6 +58,7 @@ const ShopProposal = () => {
           lng: position.lng,
           name: shopName
         })
+        navigate('/userpanel')
         if(response.status == 200)
           window.alert("Sklep zaproponowany!")
       } catch (error) {
