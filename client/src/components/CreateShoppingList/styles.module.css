@@ -52,22 +52,29 @@
     margin: 10px;
 }
 .searchResults{
-    border: 1px solid black;
     margin: 20px;
     padding: 20px;
     color: black;
-    background-color: white;
-    font-size: 2.5vw;
+    border-radius: 15px;
+    background-color: #95a5a6;
+    font-size: 2vw;
+    border-spacing: 0px 8px;
 }
 .searchResults th{
-    border-bottom: 5px solid black;
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 20px;
 }
 .searchResults td{
-    border-bottom: 1px solid black;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
+}
+.searchResults tbody tr:nth-child(odd){
+    background: #b1bbbb;
+    box-shadow: 0px 0px 9px 4px rgba(0,0,0,0.2);
+}
+.searchResults tbody tr:nth-child(even){
+    background: #d8dedf;
+    box-shadow: 0px 0px 9px 4px rgba(0,0,0,0.2);
 }
 .error{
     font-size: 1.5vw;

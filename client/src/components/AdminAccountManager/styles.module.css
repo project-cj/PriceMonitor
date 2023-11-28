@@ -1,42 +1,31 @@
-.home_container {
-    width: 100%;
-    min-height: 95vh;
-    background-color: #BCE0CF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.shop_container {
+	width: 100%;
+	min-height: 95vh;
+	background-color: #BCE0CF;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}.shop_container_2{
+	background-color: #6d7f77;
+	width: 97%;
+	min-height: 90vh;
+	color: white;
+	margin-top: 25px;
 }
-
-.home_container_2 {
-    background-color: #6d7f77;
-    width: 90%;
-    min-height: 85vh;
-    color: white;
-    margin-top: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: left;
-    padding: 20px;
-}
-
-.white_text {
-    color: #ffffff;
-    font-weight: bold;
-}
-
 .buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
 }
 
-.home_p {
-    font-size: 23px;
-    margin-bottom: 20px;
-}
+.select_style {
+    width: 60%; /* 100% szerokości kontenera */
+    padding: 10px; /* Zwiększ odstęp */
+    margin: 10px 0; /* Odstęp górny i dolny */
+    margin-left: 10px;
+  }
 
 .white_btn,
 .green_btn {
@@ -52,31 +41,59 @@
     margin: 20px;
     border: 2px solid white;
 }
-
-h1 {
+.title {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    font-size: 40px;
+    border-bottom: 6px solid white;
+    border-radius: 2px;
+    padding-bottom: 20px;
+    width: 60%;
+    font-size: 30px;
     margin: 10px;
 }
-
-h1:first-child {
-    margin-right: 400px;
+.blue_text{
+	color: #014389;
+	font-weight: bold;
+}
+.blue_text:hover{
+	color: #025bba;
+}
+.searchResults{
+    margin: 20px;
+    padding: 20px;
+    color: black;
+    border-radius: 15px;
+    background-color: #95a5a6;
+    font-size: 2vw;
+    border-spacing: 0px 8px;
+}
+.searchResults th{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+}
+.searchResults td{
+    padding: 10px;
+}
+.searchResults tbody tr:nth-child(odd){
+    background: #b1bbbb;
+    box-shadow: 0px 0px 9px 4px rgba(0,0,0,0.2);
+}
+.searchResults tbody tr:nth-child(even){
+    background: #d8dedf;
+    box-shadow: 0px 0px 9px 4px rgba(0,0,0,0.2);
+}
+.error{
+    font-size: 1.5vw;
+    width: 300px;
+    text-align: center;
+    border: 1px solid black;
+}
+.navigateButton{
+    text-align: center;
 }
 
-h1:last-child {
-    margin-left: 400px;
-}
+.nag {
+    margin-left: 20px;
 
-@media (max-width: 768px) {
-    h1 {
-        font-size: 32px; 
-    }
-
-    h1:first-child,
-    h1:last-child {
-        margin: 0; 
-    }
 }
