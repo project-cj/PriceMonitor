@@ -38,3 +38,5 @@ app.use("/api/admin", adminRoutes);
 const port = process.env.PORT ;
 
 app.listen(port, () => console.log(`Nasłuchiwanie na porcie ${port}`))
+
+module.exports = app
