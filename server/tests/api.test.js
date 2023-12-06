@@ -1,12 +1,19 @@
 const request = require('supertest');
-const app = require('../server');
+const app = require('../test_server');
 require("dotenv").config();
-const express = require('express');
-const router = express.Router(); 
 const sequelize = require('../db.js')
-const {DataTypes} = require('sequelize');
 const initModels = require('../models2/init-models.js');
 var models = initModels(sequelize)
+
+let server;
+
+beforeEach(() => {
+  server = app.listen(8081);
+});
+
+afterEach((done) => {
+  server.close(done);
+});
 
 describe('Testy endpointu "/api/shop/"', () => {
     it('Powinien zwrócić listę sklepów z kodem 200', async () => {
@@ -18,23 +25,11 @@ describe('Testy endpointu "/api/shop/"', () => {
     });
 
     it('Powinien obsłużyć błąd i zwrócić kod 500 w przypadku problemu z pobieraniem sklepów', async () => {
-        sequelize.close();
+        await sequelize.close();
         const response = await request(app).get('/api/shop/');
     
         expect(response.status).toBe(500);
         expect(response.body).toHaveProperty('error', 'Wystąpił błąd podczas pobierania sklepów.');
     });
-});
 
-/*
-describe('Testy endpointu "/api/product/"', () => {
-  it('Powinien zwrócić informacje o produkcie z kodem 200, jeśli produkt istnieje', async () => {
-    const mockProductId = 1;
-    const mockShopId = 1;
-
-    const response = await request(app).get(`/api/product/${mockProductId}/${mockShopId}`);
-    
-    expect(response.status).toBe(200);
-  });
 });
-*/
