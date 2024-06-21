@@ -24,5 +24,16 @@ A system supporting price monitoring in stationary stores nearby user’s locali
 6. Start the server application in the client folder with the npm start command
 
 ## Database schema
+### Schema in SQL Workbench
+<img src="images/baza.png" alt="Database schema" style="width:450px;">
 
 ## Screenshots from application
+
+### Product in shop site
+<img src="images/pricemonitor1.png" alt="Product in a shop" style="width:600px;">
+
+### Find a product site
+<img src="images/pricemonitor2.png" alt="Find a product" style="width:600px;">
+
+### User panel site
+<img src="images/pricemonitor3.png" alt="User panel" style="width:600px;">
